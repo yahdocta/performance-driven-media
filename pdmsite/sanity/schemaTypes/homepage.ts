@@ -18,39 +18,50 @@ export default defineType({
       description: 'Subheadline under the hero title',
     },
     {
-      name: 'primaryCTA',
-      title: 'Primary CTA',
-      type: 'object',
-      fields: [
-        {
-          name: 'text',
-          title: 'Button Text',
-          type: 'string',
-        },
-        {
-          name: 'url',
-          title: 'Button URL',
-          type: 'url',
-        },
-      ],
+      name: 'reelVideo',
+      title: 'Reel Video',
+      type: 'file',
+      description: 'Autoplay looping reel video for hero background',
+      options: {
+        accept: 'video/*',
+      },
     },
     {
-      name: 'secondaryCTA',
-      title: 'Secondary CTA',
-      type: 'object',
-      fields: [
-        {
-          name: 'text',
-          title: 'Button Text',
-          type: 'string',
-        },
-        {
-          name: 'url',
-          title: 'Button URL',
-          type: 'url',
-        },
-      ],
-    },
+        name: 'primaryCTA',
+        title: 'Primary CTA',
+        type: 'object',
+        fields: [
+          {
+            name: 'label',
+            title: 'Button Label',
+            type: 'string',
+          },
+          {
+            name: 'link',
+            title: 'Link',
+            type: 'string',
+            description: 'Use a relative path (e.g., /contact) or full URL',
+          },
+        ],
+      },      
+      {
+        name: 'secondaryCTA',
+        title: 'Secondary CTA',
+        type: 'object',
+        fields: [
+          {
+            name: 'label',
+            title: 'Button Label',
+            type: 'string',
+          },
+          {
+            name: 'link',
+            title: 'Link',
+            type: 'string',
+            description: 'Use a relative path (e.g., /contact) or full URL',
+          },
+        ],
+      },
     {
       name: 'introStatement',
       title: 'Intro Statement',
@@ -66,11 +77,7 @@ export default defineType({
           type: 'image',
           options: { hotspot: true },
           fields: [
-            {
-              name: 'alt',
-              title: 'Alternative Text',
-              type: 'string',
-            },
+            { name: 'alt', title: 'Alternative Text', type: 'string' },
           ],
         },
       ],
