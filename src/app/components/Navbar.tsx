@@ -1,8 +1,18 @@
 import Link from 'next/link';
 import { sanityClient } from '@/app/lib/sanity';
 
+interface NavigationLink {
+  label: string;
+  url: string;
+}
+
+interface NavbarData {
+  logoText: string;
+  navigationLinks: NavigationLink[];
+}
+
 export default async function Navbar() {
-  const data = await sanityClient.fetch(`*[_type == "navbar"][0]{
+  const data: NavbarData = await sanityClient.fetch(`*[_type == "navbar"][0]{
     logoText,
     navigationLinks
   }`);
@@ -17,8 +27,12 @@ export default async function Navbar() {
 
         {/* Navigation Links */}
         <div className="flex gap-6">
-          {data.navigationLinks?.map((link: any, index: number) => (
-            <Link key={index} href={link.url} className="text-gray-700 hover:text-red-500 transition">
+          {data.navigationLinks?.map((link, index) => (
+            <Link
+              key={index}
+              href={link.url}
+              className="text-gray-700 hover:text-red-500 transition"
+            >
               {link.label}
             </Link>
           ))}
@@ -27,4 +41,3 @@ export default async function Navbar() {
     </nav>
   );
 }
-

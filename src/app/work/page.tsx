@@ -1,8 +1,22 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 
+interface VideoClipAsset {
+  asset: {
+    url: string;
+  };
+}
+
+interface PortfolioItem {
+  title: string;
+  slug: {
+    current: string;
+  };
+  videoClip?: VideoClipAsset;
+}
+
 export default async function WorkPage() {
-  const items = await sanityClient.fetch(`*[_type == "portfolioItem"]{
+  const items: PortfolioItem[] = await sanityClient.fetch(`*[_type == "portfolioItem"]{
     title,
     slug,
     videoClip {
@@ -17,7 +31,7 @@ export default async function WorkPage() {
       <h1 className="text-4xl font-bold text-center mb-12">Our Work</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {items.map((item: any, index: number) => (
+        {items.map((item, index) => (
           <div key={index} className="text-center">
             {item.videoClip?.asset?.url ? (
               <video
