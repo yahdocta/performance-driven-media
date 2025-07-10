@@ -47,6 +47,7 @@ export default async function WorkPage() {
                 <span>No clip available</span>
               </div>
             )}
+
             <Link
               href={`/work/${item.slug.current}`}
               className="block mt-4 text-lg text-red-500 hover:underline"
