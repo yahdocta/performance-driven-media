@@ -1,26 +1,26 @@
 import './globals.css';
-import Navbar from '@/app/components/Navbar';
-import type { ReactNode } from 'react';
-import { DM_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-dm-sans',
-});
-
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Performance Driven Media',
-  description: 'Where Storytelling Converts',
+  description: 'High-converting video production agency',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={dmSans.className}>
+      <body className={inter.className}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

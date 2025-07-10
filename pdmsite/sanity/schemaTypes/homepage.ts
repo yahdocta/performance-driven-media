@@ -6,18 +6,6 @@ export default defineType({
   type: 'document',
   fields: [
     {
-      name: 'heroTitle',
-      title: 'Hero Title',
-      type: 'string',
-      description: 'Main headline for the hero section',
-    },
-    {
-      name: 'heroSubheadline',
-      title: 'Hero Subheadline',
-      type: 'string',
-      description: 'Subheadline under the hero title',
-    },
-    {
       name: 'reelVideo',
       title: 'Reel Video',
       type: 'file',
@@ -27,61 +15,83 @@ export default defineType({
       },
     },
     {
-        name: 'primaryCTA',
-        title: 'Primary CTA',
-        type: 'object',
-        fields: [
-          {
-            name: 'label',
-            title: 'Button Label',
-            type: 'string',
-          },
-          {
-            name: 'link',
-            title: 'Link',
-            type: 'string',
-            description: 'Use a relative path (e.g., /contact) or full URL',
-          },
-        ],
-      },      
-      {
-        name: 'secondaryCTA',
-        title: 'Secondary CTA',
-        type: 'object',
-        fields: [
-          {
-            name: 'label',
-            title: 'Button Label',
-            type: 'string',
-          },
-          {
-            name: 'link',
-            title: 'Link',
-            type: 'string',
-            description: 'Use a relative path (e.g., /contact) or full URL',
-          },
-        ],
-      },
+      name: 'heroHeadline',
+      title: 'Hero Headline',
+      type: 'string',
+      description: 'Main headline text displayed over the hero video',
+    },
     {
-      name: 'introStatement',
-      title: 'Intro Statement',
-      type: 'text',
-      description: 'Introductory text below hero section',
+      name: 'primaryCTA',
+      title: 'Primary CTA',
+      type: 'object',
+      fields: [
+        {
+          name: 'label',
+          title: 'Button Label',
+          type: 'string',
+        },
+        {
+          name: 'link',
+          title: 'Button Link',
+          type: 'string',
+          description: 'Use a relative path (e.g. /contact) or a full URL',
+        },
+      ],
+    },
+    {
+      name: 'secondaryCTA',
+      title: 'Secondary CTA',
+      type: 'object',
+      fields: [
+        {
+          name: 'label',
+          title: 'Button Label',
+          type: 'string',
+        },
+        {
+          name: 'link',
+          title: 'Button Link',
+          type: 'string',
+          description: 'Use a relative path (e.g. /services) or a full URL',
+        },
+      ],
     },
     {
       name: 'logoCarousel',
       title: 'Logo Carousel',
-      type: 'array',
-      of: [
+      type: 'object',
+      fields: [
         {
-          type: 'image',
-          options: { hotspot: true },
-          fields: [
-            { name: 'alt', title: 'Alternative Text', type: 'string' },
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+          initialValue: 'Trusted by legal leaders, health innovators, beauty disruptors, and bold consumer brands.',
+          description: 'Heading displayed above the logo carousel',
+        },
+        {
+          name: 'logos',
+          title: 'Logos',
+          type: 'array',
+          of: [
+            {
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                {
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                  description: 'Alternative text for accessibility',
+                  validation: Rule => Rule.required(),
+                },
+              ],
+            },
           ],
+          description: 'Upload logos to display in the carousel',
         },
       ],
-      description: 'Logos displayed in the trusted by section',
     },
   ],
 });
