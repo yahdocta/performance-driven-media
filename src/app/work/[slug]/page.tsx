@@ -26,26 +26,28 @@ export default async function PortfolioItemPage({ params }: Props) {
   );
 
   if (!item) {
-    notFound(); // renders Next.js 404 page
+    notFound();
   }
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-20">
-      <h1 className="text-4xl font-bold mb-6 text-center">{item.title}</h1>
-
       {item.fullVideo && (
-        <div className="mb-8 aspect-w-16 aspect-h-9">
-          <iframe
-            src={`https://www.youtube.com/embed/${item.fullVideo}`}
-            title={item.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full rounded shadow"
-          />
-        </div>
-      )}
+  <div className="mb-8 w-full" style={{ aspectRatio: '16/9' }}>
+    <iframe
+  src={`https://www.youtube.com/embed/${item.fullVideo}?modestbranding=1&rel=0`}
+  title={item.title}
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  className="w-full h-full rounded shadow-lg"
+/>
 
-      <p className="text-lg text-gray-700">{item.description}</p>
+  </div>
+)}
+
+
+      <h1 className="text-2xl font-bold mb-4 text-center">{item.title}</h1>
+
+      <p className="text-md text-gray-300">{item.description}</p>
     </main>
   );
 }
