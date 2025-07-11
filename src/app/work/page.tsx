@@ -37,6 +37,7 @@ interface ProjectsSection {
 interface ClientsSection {
   title: string;
   description: string;
+  industries: string[];
 }
 
 interface WhyChooseSection {
@@ -84,7 +85,8 @@ export default async function WorkPage() {
       },
       clientsSection {
         title,
-        description
+        description,
+        industries
       },
       whyChooseSection {
         title,
@@ -111,8 +113,22 @@ export default async function WorkPage() {
       viewProjectText: 'View Project'
     },
     clientsSection: {
-      title: 'Our Clients',
-      description: 'We partner with leading brands, attorneys, healthcare innovators, and consumer companies to produce high-impact direct-response campaigns that drive real results.'
+      title: 'Industries We Serve',
+      description: 'We specialize in high-conversion verticals where education, emotion, and action intersect.',
+      industries: [
+        'Health & Wellness',
+        'Legal Services & Mass Torts',
+        'DIY & Household',
+        'Home & Garden',
+        'Education & Coaching',
+        'Subscription & Tech',
+        'Pet Products',
+        'Beauty & Anti-Aging',
+        'Plastic Surgery',
+        'Auto Dealerships',
+        'Real Estate Agencies',
+        'Foreclosure Auctions'
+      ]
     },
     whyChooseSection: {
       title: 'Why Choose Performance Driven Media?',
@@ -139,8 +155,8 @@ export default async function WorkPage() {
 
         <div className="relative z-10 text-center px-4">
           <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            {pageData.heroTitle.split(' ')[0]}
-            <span className="block bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent animate-pulse">
+            <span className="block mb-2">{pageData.heroTitle.split(' ')[0]}</span>
+            <span className="block text-red-500 animate-pulse">
               {pageData.heroTitle.split(' ')[1]}
             </span>
           </h1>
@@ -178,9 +194,9 @@ export default async function WorkPage() {
         
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-              {pageData.projectsSection.title.split(' ')[0]}
-              <span className="block bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white leading-tight">
+              <span className="block mb-2">{pageData.projectsSection.title.split(' ')[0]}</span>
+              <span className="block text-red-500">
                 {pageData.projectsSection.title.split(' ')[1]}
               </span>
             </h2>
@@ -257,23 +273,37 @@ export default async function WorkPage() {
         </div>
       </section>
 
-      {/* Our Clients Section */}
+      {/* Industries We Serve Section */}
       <section className="bg-gradient-to-br from-gray-50 to-white py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-pattern-circles"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
         <div className="absolute top-10 right-10 w-20 h-20 bg-red-100 rounded-full opacity-50"></div>
         <div className="absolute bottom-10 left-10 w-16 h-16 bg-red-50 rounded-full opacity-50"></div>
         
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-7xl font-black mb-8 text-black">
-            {pageData.clientsSection.title.split(' ')[0]}
-            <span className="block bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
-              {pageData.clientsSection.title.split(' ')[1]}
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
+          <h2 className="text-5xl md:text-7xl font-black mb-8 text-black leading-tight">
+            <span className="block mb-2">{pageData.clientsSection.title.split(' ')[0]}</span>
+            <span className="block text-red-600">
+              {pageData.clientsSection.title.split(' ')[1]} {pageData.clientsSection.title.split(' ')[2]}
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-700 mt-6 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-700 mt-6 leading-relaxed max-w-3xl mx-auto mb-16">
             {pageData.clientsSection.description}
           </p>
+          
+          {/* Industries Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {pageData.clientsSection.industries.map((industry, idx) => (
+              <div 
+                key={idx}
+                className="group bg-white rounded-lg p-6 border border-gray-200 hover:border-red-300 transition-all duration-300 hover:shadow-lg hover:scale-105"
+              >
+                <h3 className="text-lg font-bold text-black group-hover:text-red-600 transition-colors duration-300">
+                  {industry}
+                </h3>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -281,9 +311,9 @@ export default async function WorkPage() {
       <section className="bg-gradient-to-br from-gray-900 via-black to-gray-800 py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-8 text-white">
-            {pageData.whyChooseSection.title.split(' ').slice(0, 2).join(' ')}
-            <span className="block bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-black mb-8 text-white leading-tight">
+            <span className="block mb-2">{pageData.whyChooseSection.title.split(' ').slice(0, 2).join(' ')}</span>
+            <span className="block text-red-500">
               {pageData.whyChooseSection.title.split(' ').slice(2).join(' ')}
             </span>
           </h2>

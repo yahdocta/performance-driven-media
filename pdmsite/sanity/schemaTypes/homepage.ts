@@ -93,5 +93,14 @@ export default defineType({
         },
       ],
     },
+    {
+      name: 'favicon',
+      title: 'Site Favicon',
+      type: 'image',
+      description: 'Upload a square image (32x32 or 64x64 pixels recommended) for the browser tab icon',
+      options: {
+        accept: 'image/*',
+      },
+    },
   ],
 });

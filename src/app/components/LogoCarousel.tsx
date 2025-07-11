@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Logo {
   asset: {
@@ -15,9 +15,8 @@ interface LogoCarouselProps {
 }
 
 export default function LogoCarousel({ logos }: LogoCarouselProps) {
-  const [scrollIndex, setScrollIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [logosPerView, setLogosPerView] = useState(5);
-  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,56 +30,53 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Start in the middle of the logos array
+  // Reset to start when logosPerView changes
   useEffect(() => {
-    if (logos && logos.length > 0) {
-      const middleIndex = Math.floor((logos.length - logosPerView) / 2);
-      setScrollIndex(Math.max(0, middleIndex));
-    }
-  }, [logos, logosPerView]);
+    setCurrentIndex(0);
+  }, [logosPerView]);
 
   const handlePrev = () => {
-    setScrollIndex((prev) => Math.max(prev - 1, 0));
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNext = () => {
-    setScrollIndex((prev) => Math.min(prev + 1, maxScrollIndex));
+    const maxIndex = Math.max(0, logos.length - logosPerView);
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   if (!logos || logos.length === 0) return null;
 
-  // Calculate the maximum scroll index
-  const maxScrollIndex = Math.max(0, logos.length - logosPerView);
+  const maxIndex = Math.max(0, logos.length - logosPerView);
+  const canGoPrev = currentIndex > 0;
+  const canGoNext = currentIndex < maxIndex;
 
   return (
     <div className="flex items-center gap-4 px-4">
       {/* Left Arrow */}
       <button
         onClick={handlePrev}
-        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${scrollIndex === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
+        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${!canGoPrev ? 'opacity-40 cursor-not-allowed' : ''}`}
         aria-label="Previous logos"
-        disabled={scrollIndex === 0}
+        disabled={!canGoPrev}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
-      {/* Logos Row */}
+      {/* Logos Container */}
       <div className="overflow-hidden w-full max-w-[120rem]">
-        <div
-          ref={carouselRef}
-          className="flex transition-transform duration-500"
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
           style={{
-            transform: `translateX(-${scrollIndex * (100 / logosPerView)}%)`,
-            width: `${(logos.length / logosPerView) * 100}%`,
+            transform: `translateX(-${(currentIndex * 100) / logosPerView}%)`,
           }}
         >
           {logos.map((logo, idx) => (
             <div
               key={idx}
               className="flex-shrink-0 flex items-center justify-center px-10"
-              style={{ width: `${100 / logos.length}%` }}
+              style={{ width: `${100 / logosPerView}%` }}
             >
               <Image
                 src={logo.asset.url}
@@ -97,9 +93,9 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
       {/* Right Arrow */}
       <button
         onClick={handleNext}
-        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${scrollIndex >= maxScrollIndex ? 'opacity-40 cursor-not-allowed' : ''}`}
+        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${!canGoNext ? 'opacity-40 cursor-not-allowed' : ''}`}
         aria-label="Next logos"
-        disabled={scrollIndex >= maxScrollIndex}
+        disabled={!canGoNext}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

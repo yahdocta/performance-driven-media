@@ -1,5 +1,4 @@
 import { sanityClient } from '@/app/lib/sanity';
-import Image from 'next/image';
 import Link from 'next/link';
 import LogoCarousel from './components/LogoCarousel';
 
@@ -131,34 +130,42 @@ export default async function HomePage() {
             </span>
           </h2>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            Today, they're precision-built marketing tools that blend powerful storytelling with measurable response. At{' '}
+            Today, they&apos;re precision-built marketing tools that blend powerful storytelling with measurable response. At{' '}
             <span className="font-bold text-black">Performance Driven Media</span>, we craft campaigns that work just as hard as you do—designed to educate, inspire, and convert.
           </p>
         </div>
       </section>
 
-      {/* Trusted by Industry Leaders Section with Logo Carousel */}
+      {/* Trusted by Industry Leaders Section */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
         
         <div className="relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black px-4 text-white animate-fadeInUp">
-              Trusted by
-              <span className="block bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+          <div className="text-center px-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white animate-fadeInUp leading-tight">
+              <span className="block mb-2">Trusted by</span>
+              <span className="block text-red-500">
                 Industry Leaders
               </span>
             </h2>
           </div>
-          
-          {data.logoCarousel && (
-            <div className="py-2">
-              <LogoCarousel logos={data.logoCarousel.logos} />
-            </div>
-          )}
         </div>
       </section>
+
+      {/* Logo Carousel Section */}
+      {data.logoCarousel && (
+        <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+          {/* Background pattern */}
+          <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
+          
+          <div className="relative z-10">
+            <div className="py-8">
+              <LogoCarousel logos={data.logoCarousel.logos} />
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

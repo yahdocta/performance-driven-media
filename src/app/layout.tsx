@@ -2,6 +2,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { sanityClient } from './lib/sanity';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,13 +11,37 @@ export const metadata = {
   description: 'High-converting video production agency',
 };
 
-export default function RootLayout({
+async function getFavicon() {
+  try {
+    const data = await sanityClient.fetch(`*[_type == "homepage"][0]{
+      favicon {
+        asset -> {
+          url
+        }
+      }
+    }`);
+    console.log('Favicon data:', data?.favicon?.asset?.url);
+    return data?.favicon?.asset?.url;
+  } catch (error) {
+    console.error('Error fetching favicon:', error);
+    return null;
+  }
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const faviconUrl = await getFavicon();
+
   return (
     <html lang="en">
+      <head>
+        {faviconUrl && (
+          <link rel="icon" type="image/png" href={`${faviconUrl}?v=${Date.now()}`} />
+        )}
+      </head>
       <body className={inter.className}>
         <Navbar />
         {children}
