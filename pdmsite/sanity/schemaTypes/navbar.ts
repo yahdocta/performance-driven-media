@@ -9,6 +9,7 @@ export default defineType({
       name: 'logoText',
       title: 'Logo Text',
       type: 'string',
+      initialValue: 'Performance Driven Media',
     }),
     defineField({
       name: 'logo',
@@ -29,6 +30,12 @@ export default defineType({
             { name: 'url', title: 'URL', type: 'string' },
           ],
         }),
+      ],
+      initialValue: [
+        { label: 'Home', url: '/' },
+        { label: 'Work', url: '/work' },
+        { label: 'Services', url: '/services' },
+        { label: 'Contact', url: '/contact' },
       ],
     }),
   ],

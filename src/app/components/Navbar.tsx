@@ -25,33 +25,33 @@ export default async function Navbar() {
   }`);
 
   return (
-    <nav className="bg-black/70 backdrop-blur-md shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="bg-black/80 backdrop-blur-lg shadow-2xl sticky top-0 z-50 border-b border-gray-800/50">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 group">
           {data.logo?.asset?.url ? (
             <Image
-  src={data.logo.asset.url}
-  alt={data.logoText || 'Logo'}
-  width={200} // request a higher resolution from Next.js
-  height={200}
-  className="object-contain h-10 w-auto" // still displays at 40px height visually
-  priority
-/>
+              src={data.logo.asset.url}
+              alt={data.logoText || 'Logo'}
+              width={200}
+              height={200}
+              className="object-contain h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              priority
+            />
           ) : (
-            <span className="text-2xl font-extrabold text-white tracking-wide drop-shadow-lg">
+            <span className="text-2xl font-black text-white tracking-wide drop-shadow-lg group-hover:text-red-400 transition-colors duration-300">
               {data.logoText}
             </span>
           )}
         </Link>
 
         {/* Navigation Links */}
-        <div className="flex gap-8">
+        <div className="flex gap-1">
           {data.navigationLinks?.map((link, index) => (
             <Link
               key={index}
               href={link.url}
-              className="text-gray-200 hover:text-red-400 transition-colors duration-200 font-medium px-2 py-1 hover:bg-white/10"
+              className="text-gray-300 hover:text-red-700 transition-all duration-300 font-semibold px-4 py-2 hover:scale-110"
             >
               {link.label}
             </Link>

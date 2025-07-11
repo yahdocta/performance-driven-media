@@ -1,5 +1,6 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CTA {
   label: string;
@@ -54,90 +55,122 @@ export default async function HomePage() {
   return (
     <main>
       <section className="relative w-full h-screen overflow-hidden">
-  {/* Background Video */}
-  <video
-    src={data.reelVideo.asset.url}
-    autoPlay
-    loop
-    muted
-    playsInline
-    preload="auto"
-    className="absolute top-0 left-0 w-full h-full object-cover"
-  />
+        {/* Background Video */}
+        <video
+          src={data.reelVideo.asset.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        />
 
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/40 z-10"></div>
+        {/* Enhanced Dark Overlay with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10"></div>
 
-  {/* Overlay Content */}
-  <div className="absolute inset-0 flex flex-col items-center justify-center z-20 translate-y-[-10%]">
-    <h1
-      className="text-white text-4xl md:text-6xl font-bold mb-8 text-center"
-      style={{
-        textShadow: '2px 2px 10px rgba(0,0,0,0.8)',
-      }}
-    >
-      {data.heroHeadline}
-    </h1>
-    <div className="flex gap-4 mt-2">
-      {data.primaryCTA && (
-        <a
-          href={data.primaryCTA.link}
-          className="px-8 py-3 bg-red-700 hover:bg-red-800 text-white font-semibold shadow transition rounded-none"
-        >
-          {data.primaryCTA.label}
-        </a>
-      )}
-      {data.secondaryCTA && (
-        <a
-          href={data.secondaryCTA.link}
-          className="px-8 py-3 bg-white text-black font-semibold shadow hover:bg-gray-200 transition rounded-none"
-        >
-          {data.secondaryCTA.label}
-        </a>
-      )}
-    </div>
-  </div>
-</section>
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden z-5">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-red-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-red-700/25 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
 
+        {/* Overlay Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20 translate-y-[-10%]">
+          <h1
+            className="text-white text-4xl md:text-6xl lg:text-7xl font-black mb-8 text-center tracking-tight animate-fadeInUp"
+            style={{
+              textShadow: '2px 2px 10px rgba(0,0,0,0.8)',
+            }}
+          >
+            {data.heroHeadline}
+          </h1>
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+            {data.primaryCTA && (
+              <Link
+                href={data.primaryCTA.link}
+                className="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-red-500/25 border-2 border-red-600 hover:border-red-700"
+              >
+                {data.primaryCTA.label}
+              </Link>
+            )}
+            {data.secondaryCTA && (
+              <Link
+                href={data.secondaryCTA.link}
+                className="px-8 py-4 bg-white/90 hover:bg-white text-black font-bold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-white/90 hover:border-white"
+              >
+                {data.secondaryCTA.label}
+              </Link>
+            )}
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Intro Statement Section */}
-      <section className="w-full bg-slate-100 py-16 px-4 md:px-0 flex justify-center">
-        <div className="max-w-2xl text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            Infomercials have evolved.
+      <section className="w-full bg-gradient-to-br from-gray-50 to-white py-20 px-4 md:px-0 flex justify-center relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-red-100 rounded-full opacity-50"></div>
+        <div className="absolute bottom-10 left-10 w-16 h-16 bg-red-50 rounded-full opacity-50"></div>
+        
+        <div className="max-w-4xl text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 animate-fadeInUp">
+            Infomercials have
+            <span className="block bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+              evolved.
+            </span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-            Today, they’re precision-built marketing tools that blend
-            <br />
-            powerful storytelling with measurable response. At{' '}
-            <span className="font-semibold text-black">Performance Driven Media</span>, we craft
-            campaigns that work just as hard as you do—designed to educate, inspire, and convert.
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+            Today, they're precision-built marketing tools that blend powerful storytelling with measurable response. At{' '}
+            <span className="font-bold text-black">Performance Driven Media</span>, we craft campaigns that work just as hard as you do—designed to educate, inspire, and convert.
           </p>
         </div>
       </section>
 
       {/* Logo Carousel Section */}
       {data.logoCarousel && (
-        <section className="py-32 bg-neutral-50 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 px-4 text-gray-800">
-            {data.logoCarousel.heading}
-          </h2>
-          <div className="flex overflow-x-auto gap-20 px-4 justify-center">
-            {data.logoCarousel.logos?.map((logo, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 transition-transform duration-300 transform hover:-translate-y-2 hover:scale-101"
-                style={{ paddingTop: '1.0rem' }}
-              >
-                <Image
-                  src={logo.asset.url}
-                  alt={logo.alt}
-                  width={300}
-                  height={150}
-                  className="object-contain w-auto h-48"
-                />
-              </div>
-            ))}
+        <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+          {/* Background pattern */}
+          <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
+          
+          <div className="relative z-10 text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-12 px-4 text-white animate-fadeInUp">
+              Trusted by
+              <span className="block bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                Industry Leaders
+              </span>
+            </h2>
+            
+            <div className="flex overflow-x-auto gap-20 px-4 justify-center items-center overflow-y-hidden">
+              {data.logoCarousel.logos?.map((logo, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 transition-all duration-500 transform hover:-translate-y-2 hover:scale-110 animate-fadeInUp"
+                  style={{ 
+                    animationDelay: `${index * 100}ms`,
+                    paddingTop: '1.0rem',
+                    paddingBottom: '1.0rem'
+                  }}
+                >
+                  <Image
+                    src={logo.asset.url}
+                    alt={logo.alt}
+                    width={300}
+                    height={150}
+                    className="object-contain w-auto h-32 md:h-48"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}

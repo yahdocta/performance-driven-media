@@ -5,5 +5,6 @@ import homepage from './homepage';
 import navbar from './navbar';
 import portfolioItem from './portfolioItem';
 import services from './services';
+import workpage from './workpage';
 
-export const schemaTypes = [homepage, navbar, portfolioItem, services, blogpage, contact, footer]
+export const schemaTypes = [homepage, navbar, portfolioItem, services, blogpage, contact, footer, workpage]
