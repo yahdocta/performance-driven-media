@@ -44,12 +44,13 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
   };
 
   const handleNext = () => {
-    setScrollIndex((prev) =>
-      Math.min(prev + 1, logos.length - logosPerView)
-    );
+    setScrollIndex((prev) => Math.min(prev + 1, maxScrollIndex));
   };
 
   if (!logos || logos.length === 0) return null;
+
+  // Calculate the maximum scroll index
+  const maxScrollIndex = Math.max(0, logos.length - logosPerView);
 
   return (
     <div className="flex items-center gap-4 px-4">
@@ -96,9 +97,9 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
       {/* Right Arrow */}
       <button
         onClick={handleNext}
-        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${scrollIndex >= logos.length - logosPerView ? 'opacity-40 cursor-not-allowed' : ''}`}
+        className={`w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-red-500/25 flex-shrink-0 ${scrollIndex >= maxScrollIndex ? 'opacity-40 cursor-not-allowed' : ''}`}
         aria-label="Next logos"
-        disabled={scrollIndex >= logos.length - logosPerView}
+        disabled={scrollIndex >= maxScrollIndex}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
