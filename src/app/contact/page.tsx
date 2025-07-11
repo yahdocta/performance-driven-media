@@ -88,68 +88,11 @@ export default async function ContactPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black py-32">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-red-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-red-700/5 rounded-full blur-3xl animate-pulse delay-500"></div>
-        </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-red-100 to-red-300 bg-clip-text text-transparent">
-            {pageData.heroTitle}
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            {pageData.heroSubtitle}
-          </p>
-          
-          {/* Scroll Indicator */}
-          <div className="mt-16 flex justify-center">
-            <div className="w-6 h-10 border-2 border-red-500 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-red-500 rounded-full mt-2 animate-bounce"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-gray-900 to-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23dc2626&quot; fill-opacity=&quot;0.05&quot;%3E%3Ccircle cx=&quot;30&quot; cy=&quot;30&quot; r=&quot;2&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
-        
-        <div className="relative max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-red-400">
-            {pageData.stats.title}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { stat: pageData.stats.stat1, delay: 0 },
-              { stat: pageData.stats.stat2, delay: 200 },
-              { stat: pageData.stats.stat3, delay: 400 }
-            ].map((item, idx) => (
-              <div 
-                key={idx}
-                className="text-center group hover:scale-105 transition-transform duration-300"
-                style={{ animationDelay: `${item.delay}ms` }}
-              >
-                <div className="text-6xl md:text-7xl font-bold text-red-500 mb-4 group-hover:text-red-400 transition-colors">
-                  {item.stat.number}
-                </div>
-                <div className="text-xl text-gray-300 font-medium">
-                  {item.stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Contact Form Section */}
       <section className="py-20 bg-black relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
           <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
         </div>
 
@@ -280,6 +223,46 @@ export default async function ContactPage() {
                 </form>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Stats Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-pattern-dots opacity-30"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+        
+        <div className="relative max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
+              <span className="block mb-2">Why Choose</span>
+              <span className="block text-red-500">Us</span>
+            </h2>
+            <div className="w-24 h-1 bg-red-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { stat: pageData.stats.stat1, icon: "🎯", delay: 0 },
+              { stat: pageData.stats.stat2, icon: "🚀", delay: 200 },
+              { stat: pageData.stats.stat3, icon: "⭐", delay: 400 }
+            ].map((item, idx) => (
+              <div 
+                key={idx}
+                className="bg-gradient-to-br from-gray-800/50 to-black/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 text-center group hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/20 hover:border-red-500/50"
+                style={{ animationDelay: `${item.delay}ms` }}
+              >
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {item.icon}
+                </div>
+                <div className="text-5xl md:text-6xl font-black text-red-500 mb-4 group-hover:text-red-400 transition-colors">
+                  {item.stat.number}
+                </div>
+                <div className="text-xl text-gray-300 font-semibold">
+                  {item.stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
