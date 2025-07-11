@@ -1,6 +1,7 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
 import Link from 'next/link';
+import LogoCarousel from './components/LogoCarousel';
 
 interface CTA {
   label: string;
@@ -136,44 +137,28 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Logo Carousel Section */}
-      {data.logoCarousel && (
-        <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
-          {/* Background pattern */}
-          <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
-          
-          <div className="relative z-10 text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-12 px-4 text-white animate-fadeInUp">
+      {/* Trusted by Industry Leaders Section with Logo Carousel */}
+      <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
+        
+        <div className="relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black px-4 text-white animate-fadeInUp">
               Trusted by
               <span className="block bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
                 Industry Leaders
               </span>
             </h2>
-            
-            <div className="flex overflow-x-auto gap-20 px-4 justify-center items-center overflow-y-hidden">
-              {data.logoCarousel.logos?.map((logo, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 transition-all duration-500 transform hover:-translate-y-2 hover:scale-110 animate-fadeInUp"
-                  style={{ 
-                    animationDelay: `${index * 100}ms`,
-                    paddingTop: '1.0rem',
-                    paddingBottom: '1.0rem'
-                  }}
-                >
-                  <Image
-                    src={logo.asset.url}
-                    alt={logo.alt}
-                    width={300}
-                    height={150}
-                    className="object-contain w-auto h-32 md:h-48"
-                  />
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
-      )}
+          
+          {data.logoCarousel && (
+            <div className="py-2">
+              <LogoCarousel logos={data.logoCarousel.logos} />
+            </div>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
