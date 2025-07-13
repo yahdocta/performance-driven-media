@@ -34,7 +34,23 @@ interface IndustriesSection {
   industries: Industry[];
 }
 
+interface LongFormBenefit {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface LongFormSection {
+  headline: string;
+  subheadline: string;
+  description: string;
+  benefits: LongFormBenefit[];
+  ctaText: string;
+  ctaLink: string;
+}
+
 interface ServicesPageData {
+  longFormSection: LongFormSection;
   servicesSection: ServicesSection;
   industriesSection: IndustriesSection;
 }
@@ -111,6 +127,18 @@ function IndustryIcon({ icon }: { icon: string }) {
 export default async function ServicesPage() {
   const data: ServicesPageData = await sanityClient.fetch(
     `*[_type == "servicesPage"][0]{
+      longFormSection {
+        headline,
+        subheadline,
+        description,
+        benefits[] {
+          title,
+          description,
+          icon
+        },
+        ctaText,
+        ctaLink
+      },
       servicesSection {
         headline,
         subhead,
@@ -145,6 +173,30 @@ export default async function ServicesPage() {
 
   // Fallback data
   const fallbackData: ServicesPageData = {
+    longFormSection: {
+      headline: 'The Power of 30 Minutes',
+      subheadline: '30 Minutes',
+      description: 'Where most agencies fail, we excel. Our 30-minute long-form spots are engineered to hold attention, build trust, and drive conversions through strategic storytelling and proven direct-response principles.',
+      benefits: [
+        {
+          title: 'Extended Engagement',
+          description: '30 minutes of undivided attention allows us to build deep trust, address objections, and create emotional connections that short spots simply can\'t achieve.',
+          icon: 'clock'
+        },
+        {
+          title: 'Higher Conversion Rates',
+          description: 'More time means more proof, more testimonials, more demonstrations, and more compelling reasons to buy—resulting in significantly higher conversion rates.',
+          icon: 'chart'
+        },
+        {
+          title: 'Proven ROI',
+          description: 'Our 30-minute format has consistently delivered 3-5x higher ROI compared to traditional short-form campaigns across all verticals.',
+          icon: 'lightning'
+        }
+      ],
+      ctaText: 'Start Your 30-Minute Campaign',
+      ctaLink: '/contact'
+    },
     servicesSection: {
       headline: 'From Idea to Air—And Everywhere in Between',
       subhead: 'Strategy, production, and post—optimized for performance.',
@@ -259,50 +311,62 @@ export default async function ServicesPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 overflow-hidden">
-        <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
+      {/* Long-Form Expertise Section */}
+      <section className="min-h-[90vh] flex items-center py-20 px-4 bg-gradient-to-br from-black via-red-950 to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-pattern-dots opacity-30"></div>
         
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-red-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-red-700/25 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            <span className="block mb-2">Our</span>
-            <span className="block text-red-500 animate-pulse">
-              Services
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-            Direct-response campaigns that drive measurable results through strategic creative and cinematic production
-          </p>
-
-          {/* Floating stats */}
-          <div className="flex justify-center space-x-8 md:space-x-16 mt-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">100%</div>
-              <div className="text-sm text-gray-400">Performance Driven</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">24/7</div>
-              <div className="text-sm text-gray-400">Support</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">∞</div>
-              <div className="text-sm text-gray-400">Possibilities</div>
-            </div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black mb-8 text-white leading-tight">
+              <span className="block mb-2">{pageData.longFormSection.headline.split(' of ')[0]} of</span>
+              <span className="block text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-yellow-200 via-red-300 to-orange-200 bg-clip-text text-transparent drop-shadow-2xl font-extrabold relative" style={{ 
+                animation: 'pulseLight 3s ease-in-out infinite',
+                filter: 'brightness(1)'
+              }}>
+                {pageData.longFormSection.subheadline}
+              </span>
+            </h2>
+            <p className="text-xl md:text-2xl text-red-100 max-w-4xl mx-auto leading-relaxed">
+              {pageData.longFormSection.description}
+            </p>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-red-500 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-red-500 rounded-full mt-2 animate-pulse"></div>
+          {/* Long-form benefits grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {pageData.longFormSection.benefits.map((benefit, idx) => (
+              <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
+                <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {benefit.icon === 'clock' && (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    )}
+                    {benefit.icon === 'chart' && (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    )}
+                    {benefit.icon === 'lightning' && (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    )}
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">{benefit.title}</h3>
+                <p className="text-red-100 leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA for long-form */}
+          <div className="text-center">
+            <Link
+              href={pageData.longFormSection.ctaLink}
+              className="inline-flex items-center bg-white hover:bg-red-50 text-red-800 px-12 py-5 text-xl font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-white hover:border-red-50 group"
+            >
+              {pageData.longFormSection.ctaText}
+              <svg className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
@@ -316,14 +380,12 @@ export default async function ServicesPage() {
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-black mb-8 text-black leading-tight">
-            <span className="block mb-2">{pageData.servicesSection.headline.split('—')[0]}</span>
-            <span className="block text-red-600">
-              {pageData.servicesSection.headline.split('—')[1]}
-            </span>
+            <span className="block mb-2">From 30-Second Spots</span>
+            <span className="block text-red-600">to 30-Minute Epics</span>
           </h2>
           
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-16">
-            {pageData.servicesSection.subhead}
+            While we specialize in high-converting long-form content, we&apos;re masters of all formats—from quick social media hits to comprehensive educational campaigns.
           </p>
 
           {/* Services Grid */}
@@ -383,6 +445,70 @@ export default async function ServicesPage() {
             </div>
           </div>
 
+          {/* Content Formats Section */}
+          <div className="mt-20">
+            <h3 className="text-3xl md:text-4xl font-black text-black mb-12 text-center">
+              <span className="block mb-2">Content Formats</span>
+              <span className="block text-red-600 text-2xl md:text-3xl">We Do It All</span>
+            </h3>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Long-Form (Featured) */}
+              <div className="group bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 border-2 border-red-600 hover:border-red-500 transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">30-Minute Long-Form</h4>
+                <p className="text-red-100 text-sm leading-relaxed">
+                  Our specialty. High-converting educational and demonstration content that builds trust and drives sales.
+                </p>
+                <div className="mt-3">
+                  <span className="inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">Our Expertise</span>
+                </div>
+              </div>
+
+              {/* Short-Form */}
+              <div className="group bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 border-gray-200 hover:border-red-300 transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-bold text-black mb-2">15-60 Second Spots</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Quick-hitting social media content, TV spots, and digital ads that grab attention and drive action.
+                </p>
+              </div>
+
+              {/* Mid-Form */}
+              <div className="group bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 border-gray-200 hover:border-red-300 transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-bold text-black mb-2">2-5 Minute Mid-Form</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Perfect for product demos, testimonials, and educational content that needs more depth than short-form.
+                </p>
+              </div>
+
+              {/* VSLs */}
+              <div className="group bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 border-gray-200 hover:border-red-300 transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-bold text-black mb-2">Video Sales Letters</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Landing page VSLs, webinar replays, and sales presentations optimized for conversion.
+                </p>
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>

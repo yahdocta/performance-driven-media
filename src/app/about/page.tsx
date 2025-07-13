@@ -1,5 +1,6 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface AboutPageData {
   headline: string;
@@ -141,21 +142,21 @@ export default async function AboutPage() {
             Ready to Tell Your Story?
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Let's create something extraordinary together. Your vision, our expertise, limitless possibilities.
+            Let&apos;s create something extraordinary together. Your vision, our expertise, limitless possibilities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <Link 
               href="/contact" 
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 text-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-red-500/25 border-2 border-red-600 hover:border-red-700"
             >
               Get Started Today
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/work" 
               className="inline-block bg-transparent hover:bg-gray-100 text-black font-bold py-4 px-8 text-lg border-2 border-black hover:border-gray-800 transition-all duration-300 transform hover:scale-105"
             >
               View Our Work
-            </a>
+            </Link>
           </div>
         </div>
       </section>

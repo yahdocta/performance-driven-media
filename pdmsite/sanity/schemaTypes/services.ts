@@ -6,6 +6,88 @@ export default defineType({
   type: 'document',
   fields: [
     {
+      name: 'longFormSection',
+      title: 'Long-Form Expertise Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'headline',
+          title: 'Section Headline',
+          type: 'string',
+          initialValue: 'The Power of 30 Minutes',
+        },
+        {
+          name: 'subheadline',
+          title: 'Section Subheadline',
+          type: 'string',
+          initialValue: '30 Minutes',
+        },
+        {
+          name: 'description',
+          title: 'Section Description',
+          type: 'text',
+          initialValue: 'Where most agencies fail, we excel. Our 30-minute long-form spots are engineered to hold attention, build trust, and drive conversions through strategic storytelling and proven direct-response principles.',
+        },
+        {
+          name: 'benefits',
+          title: 'Benefits',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  name: 'title',
+                  title: 'Benefit Title',
+                  type: 'string',
+                },
+                {
+                  name: 'description',
+                  title: 'Benefit Description',
+                  type: 'text',
+                },
+                {
+                  name: 'icon',
+                  title: 'Icon Name',
+                  type: 'string',
+                  description: 'Icon identifier (e.g., "clock", "chart", "lightning")',
+                },
+              ],
+            },
+          ],
+          initialValue: [
+            {
+              title: 'Extended Engagement',
+              description: '30 minutes of undivided attention allows us to build deep trust, address objections, and create emotional connections that short spots simply can\'t achieve.',
+              icon: 'clock'
+            },
+            {
+              title: 'Higher Conversion Rates',
+              description: 'More time means more proof, more testimonials, more demonstrations, and more compelling reasons to buy—resulting in significantly higher conversion rates.',
+              icon: 'chart'
+            },
+            {
+              title: 'Proven ROI',
+              description: 'Our 30-minute format has consistently delivered 3-5x higher ROI compared to traditional short-form campaigns across all verticals.',
+              icon: 'lightning'
+            }
+          ],
+        },
+        {
+          name: 'ctaText',
+          title: 'CTA Button Text',
+          type: 'string',
+          initialValue: 'Start Your 30-Minute Campaign',
+        },
+        {
+          name: 'ctaLink',
+          title: 'CTA Button Link',
+          type: 'string',
+          initialValue: '/contact',
+        },
+      ],
+    },
+    {
       name: 'servicesSection',
       title: 'Services Section',
       type: 'object',
