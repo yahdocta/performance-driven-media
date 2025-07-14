@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "pdmsite-0903"
+  },
+  "targets": {
+    "pdmsite-0903": {
+      "hosting": {
+        "main": [
+          "performancedrivenmedia.com"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

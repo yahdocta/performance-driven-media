@@ -51,7 +51,6 @@ export default async function AboutPage() {
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-gray-900 via-black to-gray-800 overflow-hidden">
         <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
         
         <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
           <div className="mb-8">
