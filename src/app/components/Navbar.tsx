@@ -28,7 +28,6 @@ interface NavbarData {
 
 // Main Navbar component
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [data, setData] = useState<NavbarData | null>(null);
 
   // Fetch navbar data from Sanity CMS on mount
