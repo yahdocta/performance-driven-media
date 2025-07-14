@@ -15,7 +15,7 @@ A high-converting video production agency website built with Next.js, Sanity CMS
 - [Sanity CMS](https://www.sanity.io/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Vercel Hosting](https://vercel.com/) (recommended)
+- [Firebase Hosting](https://vercel.com/)
 
 ## Getting Started
 
@@ -44,7 +44,7 @@ A high-converting video production agency website built with Next.js, Sanity CMS
      ```
 
 ## Deployment
-- Deploy easily to [Vercel](https://vercel.com/) or your preferred platform.
+- Deploy easily to [Firebase](https://firebase.com/) or your preferred platform.
 - Set up environment variables for Sanity project ID, dataset, and API version as needed.
 
 ## Project Structure
