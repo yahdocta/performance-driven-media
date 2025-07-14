@@ -18,7 +18,7 @@ interface DropdownProps {
 export default function Dropdown({ trigger, items, className = "" }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -30,7 +30,7 @@ export default function Dropdown({ trigger, items, className = "" }: DropdownPro
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false)
-    }, 150) // Small delay to prevent flickering
+    }, 150) as unknown as NodeJS.Timeout // Small delay to prevent flickering
   }
 
   const handleClick = () => {
