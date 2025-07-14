@@ -98,7 +98,7 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
                 width={1500}
                 height={750}
                 // Responsive height and width for logo images
-                className="object-contain w-full h-32 sm:h-24 md:h-32 lg:h-40"
+                className="object-contain w-full h-40 sm:h-24 md:h-32 lg:h-40"
               />
             </div>
           ))}
