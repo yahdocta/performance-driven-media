@@ -77,7 +77,7 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
       </button>
 
       {/* Logos Container */}
-      <div className="overflow-hidden w-full max-w-[120rem]">
+      <div className="overflow-hidden w-full max-w-full">
         <div 
           className="flex transition-transform duration-500 ease-in-out"
           style={{
