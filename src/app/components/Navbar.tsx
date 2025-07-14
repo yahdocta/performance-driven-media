@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { sanityClient } from '@/app/lib/sanity';
+import Dropdown from './dropdown';
 
 // Navigation link type
 interface NavigationLink {
@@ -75,35 +76,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          className="sm:hidden flex items-center px-3 py-2 border rounded text-gray-300 border-gray-400 hover:text-white hover:border-white focus:outline-none"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Toggle menu"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {menuOpen && (
-        <div className="sm:hidden absolute top-full left-0 w-full bg-black/95 shadow-lg z-50 animate-fadeInDown">
-          <div className="flex flex-col py-2">
-            {data.navigationLinks?.map((link, index) => (
-              <Link
-                key={index}
-                href={link.url}
-                className="text-gray-300 hover:text-red-700 transition-all duration-300 font-semibold px-6 py-3 border-b border-gray-800"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        {/* Mobile Dropdown Menu */}
+        <div className="sm:hidden">
+          <Dropdown
+            trigger="Menu"
+            items={data.navigationLinks.map(link => ({ label: link.label, href: link.url }))}
+            className=""
+          />
         </div>
-      )}
+      </div>
 
       {/* Decorative red stripe at the bottom */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
