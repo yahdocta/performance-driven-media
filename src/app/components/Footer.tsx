@@ -62,7 +62,7 @@ export default async function Footer() {
                 alt="Performance Driven Media Logo"
                 width={240}
                 height={60}
-                className="h-16 object-contain mx-auto"
+                className="h-16 w-auto object-contain mx-auto"
               />
             ) : (
               <div className="h-16 flex items-center justify-center">
