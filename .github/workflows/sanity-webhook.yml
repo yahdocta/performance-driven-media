@@ -29,4 +29,9 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PDMSITE_0903 }}'
           projectId: pdmsite-0903
-          channelId: live 
+          channelId: live
+
+      - name: Notify deployment
+        run: |
+          echo "🚀 Site deployed successfully after Sanity content update!"
+          echo "📅 Deployment time: $(date)" 
