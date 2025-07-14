@@ -138,10 +138,17 @@ export default async function HomePage() {
         <div className="absolute bottom-10 left-10 w-16 h-16 bg-red-50 rounded-full opacity-50"></div>
         <div className="max-w-4xl text-center relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 animate-fadeInUp">
-            {data.introHeadline}
+            {data.introHeadline?.split('\n')[0]}
+            {data.introHeadline?.split('\n')[1] && (
+              <span className="block bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+                {data.introHeadline.split('\n')[1]}
+              </span>
+            )}
           </h2>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            {data.introParagraph}
+            {data.introParagraph?.split('Performance Driven Media').length > 1
+              ? <>{data.introParagraph.split('Performance Driven Media')[0]}<span className="font-bold text-black">Performance Driven Media</span>{data.introParagraph.split('Performance Driven Media')[1]}</>
+              : data.introParagraph}
           </p>
         </div>
       </section>
