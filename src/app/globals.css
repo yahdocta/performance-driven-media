@@ -79,8 +79,21 @@ body {
   }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+/* Mobile video optimizations */
+video {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent video interference with scroll on mobile */
+@media (max-width: 768px) {
+  video {
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 @keyframes glow {

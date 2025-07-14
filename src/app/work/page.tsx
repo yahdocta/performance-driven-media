@@ -227,7 +227,8 @@ export default async function WorkPage() {
                       loop
                       muted
                       playsInline
-                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                      disablePictureInPicture
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 select-none"
                     />
                   ) : (
                     <div className="w-full h-64 bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center">

@@ -76,8 +76,8 @@ export default async function HomePage() {
           loop
           muted
           playsInline
-          preload="auto"
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          disablePictureInPicture
+          className="absolute top-0 left-0 w-full h-full object-cover select-none"
         />
 
         {/* Enhanced Dark Overlay with gradient */}
