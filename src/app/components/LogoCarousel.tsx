@@ -77,9 +77,9 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
       </button>
 
       {/* Logos Container */}
-      <div className="overflow-hidden w-full max-w-full h-56 sm:h-32 md:h-40 lg:h-48">
+      <div className="overflow-hidden w-full max-w-full">
         <div 
-          className="flex transition-transform duration-500 ease-in-out"
+          className="flex items-center transition-transform duration-500 ease-in-out"
           style={{
             // Move the logos horizontally based on currentIndex
             transform: `translateX(-${(currentIndex * 100) / logosPerView}%)`,
@@ -98,7 +98,7 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
                 width={1500}
                 height={750}
                 // Responsive height and width for logo images
-                className="object-contain w-full h-56 sm:h-32 md:h-40 lg:h-48"
+                className="object-contain w-full h-28 sm:h-32 md:h-40 lg:h-48"
               />
             </div>
           ))}
