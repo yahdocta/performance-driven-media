@@ -28,7 +28,6 @@ async function getFavicon() {
     }`);
     
     if (data?.favicon?.asset?.url) {
-      console.log('✅ Favicon found in Sanity:', data.favicon.asset.url);
       return data.favicon.asset.url;
     } else {
       console.log('⚠️ No favicon found in Sanity, using fallback');
