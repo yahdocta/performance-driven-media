@@ -15,7 +15,7 @@ A high-converting video production agency website built with Next.js, Sanity CMS
 - [Sanity CMS](https://www.sanity.io/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Firebase Hosting](https://vercel.com/)
+- [Firebase Hosting](https://firebase.com/) 
 
 ## Getting Started
 
