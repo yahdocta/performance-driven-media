@@ -21,6 +21,18 @@ export default defineType({
       description: 'Main headline text displayed over the hero video',
     },
     {
+      name: 'introHeadline',
+      title: 'Intro Headline',
+      type: 'string',
+      description: 'Headline for the intro section (e.g., Infomercials have evolved.)',
+    },
+    {
+      name: 'introParagraph',
+      title: 'Intro Paragraph',
+      type: 'text',
+      description: 'Paragraph for the intro section below the headline.',
+    },
+    {
       name: 'primaryCTA',
       title: 'Primary CTA',
       type: 'object',

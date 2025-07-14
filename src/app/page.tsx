@@ -3,7 +3,7 @@
 
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
-import LogoCarousel from './components/LogoCarousel';
+import LogoCarousel from './components/logo-carousel';
 
 // CTA button type
 interface CTA {
@@ -154,7 +154,7 @@ export default async function HomePage() {
       </section>
 
       {/* Trusted by Industry Leaders Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+      <section className="py-8 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
         
@@ -166,20 +166,20 @@ export default async function HomePage() {
                 Industry Leaders
               </span>
             </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto mt-4">
+              We've had the privilege of working with some of the world's most innovative companies
+            </p>
           </div>
         </div>
       </section>
 
       {/* Logo Carousel Section */}
       {data.logoCarousel && (
-        <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+        <section className="py-4 bg-black relative overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
-          
           <div className="relative z-10">
-            <div className="py-8">
-              <LogoCarousel logos={data.logoCarousel.logos} />
-            </div>
+            <LogoCarousel logos={data.logoCarousel.logos} />
           </div>
         </section>
       )}

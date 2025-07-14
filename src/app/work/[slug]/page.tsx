@@ -51,9 +51,9 @@ export default async function PortfolioItemPage({ params }: Props) {
         </div>
       )}
       {/* Title */}
-      <h1 className="text-2xl font-bold mb-4 text-center">{item.title}</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center text-black">{item.title}</h1>
       {/* Description */}
-      <p className="text-md text-gray-300">{item.description}</p>
+      <p className="text-md text-gray-800">{item.description}</p>
     </main>
   );
 }
