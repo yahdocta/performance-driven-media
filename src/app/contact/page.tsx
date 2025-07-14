@@ -1,4 +1,5 @@
 import { sanityClient } from '@/app/lib/sanity';
+import ContactForm from '../components/ContactForm';
 
 interface Stat {
   number: string;
@@ -171,56 +172,7 @@ export default async function ContactPage() {
                   {pageData.formSection.subtitle}
                 </p>
 
-                <form className="space-y-6">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 focus:border-red-500 focus:outline-none transition-colors"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 focus:border-red-500 focus:outline-none transition-colors"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Project Type"
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 focus:border-red-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Budget Range"
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 focus:border-red-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  
-                  <div>
-                    <textarea
-                      placeholder="Message"
-                      rows={5}
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 focus:border-red-500 focus:outline-none transition-colors resize-none"
-                    ></textarea>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-red-500 hover:bg-red-600 text-black px-8 py-4 text-lg font-bold transition-colors duration-300"
-                  >
-                    {pageData.formSection.submitButton}
-                  </button>
-                </form>
+                <ContactForm submitButtonText={pageData.formSection.submitButton} />
               </div>
             </div>
           </div>
