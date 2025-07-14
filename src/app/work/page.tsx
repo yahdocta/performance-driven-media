@@ -1,3 +1,7 @@
+// work/page.tsx
+// Work/portfolio page for Performance Driven Media. Fetches portfolio items and work page data from Sanity and renders hero, projects, industries, and why choose us sections.
+
+// (Add comments to each section, interface, and major logic block throughout the file for clarity.)
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 

@@ -1,7 +1,11 @@
+// about/page.tsx
+// About page for Performance Driven Media. Fetches about data from Sanity and renders hero, overview, logo style, and CTA sections.
+
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// About page data structure
 interface AboutPageData {
   headline: string;
   subhead: string;
@@ -15,7 +19,9 @@ interface AboutPageData {
   };
 }
 
+// Main AboutPage component
 export default async function AboutPage() {
+  // Fetch about page data from Sanity CMS
   const data: AboutPageData = await sanityClient.fetch(
     `*[_type == "aboutPage"][0]{
       headline,

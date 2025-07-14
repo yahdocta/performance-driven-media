@@ -1,12 +1,17 @@
+// Navbar.tsx
+// Sticky navigation bar with logo and dynamic navigation links fetched from Sanity.
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { sanityClient } from '@/app/lib/sanity';
 
+// Navigation link type
 interface NavigationLink {
   label: string;
   url: string;
 }
 
+// Navbar data structure
 interface NavbarData {
   logoText: string;
   logo?: {
@@ -17,7 +22,9 @@ interface NavbarData {
   navigationLinks: NavigationLink[];
 }
 
+// Main Navbar component
 export default async function Navbar() {
+  // Fetch navbar data from Sanity CMS
   const data: NavbarData = await sanityClient.fetch(`*[_type == "navbar"][0]{
     logoText,
     logo { asset -> { url } },
@@ -27,7 +34,7 @@ export default async function Navbar() {
   return (
     <nav className="bg-black/80 backdrop-blur-lg shadow-2xl sticky top-0 z-50 border-b border-gray-800/50 relative">
       <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo (image or text fallback) */}
         <Link href="/" className="flex items-center gap-3 group">
           {data.logo?.asset?.url ? (
             <Image
@@ -59,7 +66,7 @@ export default async function Navbar() {
         </div>
       </div>
       
-      {/* Red stripe at bottom */}
+      {/* Decorative red stripe at the bottom */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
     </nav>
   );

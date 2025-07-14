@@ -1,12 +1,17 @@
+// ContactForm.tsx
+// Reusable contact form component for Performance Driven Media. Handles form state, validation, and submission to Formspree.
+
 'use client';
 
 import { useState } from 'react';
 
+// Props for the ContactForm component
 interface ContactFormProps {
   submitButtonText: string;
 }
 
 export default function ContactForm({ submitButtonText }: ContactFormProps) {
+  // Form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,11 +19,12 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
     budgetRange: '',
     message: ''
   });
-  
+  // Submission state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -27,12 +33,12 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
-
     try {
       // Using Formspree for static site compatibility
       const response = await fetch('https://formspree.io/f/mpwlalob', {
@@ -49,7 +55,6 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           _subject: `New Contact Form Submission from ${formData.name}`
         }),
       });
-
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({
@@ -73,6 +78,7 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Name input */}
       <div>
         <input
           type="text"
@@ -85,7 +91,7 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           disabled={isSubmitting}
         />
       </div>
-      
+      {/* Email input */}
       <div>
         <input
           type="email"
@@ -98,7 +104,7 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           disabled={isSubmitting}
         />
       </div>
-      
+      {/* Project Type input */}
       <div>
         <input
           type="text"
@@ -110,7 +116,7 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           disabled={isSubmitting}
         />
       </div>
-      
+      {/* Budget Range input */}
       <div>
         <input
           type="text"
@@ -122,7 +128,7 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           disabled={isSubmitting}
         />
       </div>
-      
+      {/* Message textarea */}
       <div>
         <textarea
           name="message"
@@ -135,20 +141,18 @@ export default function ContactForm({ submitButtonText }: ContactFormProps) {
           disabled={isSubmitting}
         ></textarea>
       </div>
-
       {/* Status Messages */}
       {submitStatus === 'success' && (
         <div className="bg-green-500/20 border border-green-500/50 text-green-400 px-4 py-3 rounded-lg">
           Thank you! Your message has been sent successfully. We&apos;ll get back to you soon.
         </div>
       )}
-
       {submitStatus === 'error' && (
         <div className="bg-red-500/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg">
           {errorMessage}
         </div>
       )}
-
+      {/* Submit button */}
       <button
         type="submit"
         disabled={isSubmitting}

@@ -1,11 +1,16 @@
+// contact/page.tsx
+// Contact page for Performance Driven Media. Fetches contact data from Sanity and renders contact info, form, and stats sections.
+
 import { sanityClient } from '@/app/lib/sanity';
 import ContactForm from '../components/ContactForm';
 
+// Stat type
 interface Stat {
   number: string;
   label: string;
 }
 
+// Stats section type
 interface Stats {
   title: string;
   stat1: Stat;
@@ -13,6 +18,7 @@ interface Stats {
   stat3: Stat;
 }
 
+// Contact info type
 interface ContactInfo {
   title: string;
   description: string;
@@ -21,12 +27,14 @@ interface ContactInfo {
   location: string;
 }
 
+// Form section type
 interface FormSection {
   title: string;
   subtitle: string;
   submitButton: string;
 }
 
+// Contact page data structure
 interface ContactPageData {
   heroTitle: string;
   heroSubtitle: string;
@@ -35,7 +43,9 @@ interface ContactPageData {
   stats: Stats;
 }
 
+// Main ContactPage component
 export default async function ContactPage() {
+  // Fetch contact page data from Sanity CMS
   const data: ContactPageData = await sanityClient.fetch(
     `*[_type == "contactPage"][0]{
       heroTitle,
@@ -89,14 +99,11 @@ export default async function ContactPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-
-
       {/* Contact Form Section */}
       <section className="py-20 bg-black relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
         </div>
-
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Info */}
@@ -109,8 +116,8 @@ export default async function ContactPage() {
                   {pageData.contactInfo.description}
                 </p>
               </div>
-
               <div className="space-y-6">
+                {/* Email */}
                 <div className="flex items-center space-x-4 group">
                   <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center group-hover:bg-red-500 transition-colors duration-300">
                     <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,7 +131,7 @@ export default async function ContactPage() {
                     </a>
                   </div>
                 </div>
-
+                {/* Phone */}
                 <div className="flex items-center space-x-4 group">
                   <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center group-hover:bg-red-500 transition-colors duration-300">
                     <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,7 +145,7 @@ export default async function ContactPage() {
                     </a>
                   </div>
                 </div>
-
+                {/* Location */}
                 <div className="flex items-center space-x-4 group">
                   <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center group-hover:bg-red-500 transition-colors duration-300">
                     <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,16 +161,12 @@ export default async function ContactPage() {
                   </div>
                 </div>
               </div>
-
-
             </div>
-
             {/* Contact Form */}
             <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-lg p-8 relative overflow-hidden">
               {/* Background decoration */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-red-500/10 rounded-full blur-xl"></div>
-              
               <div className="relative">
                 <h3 className="text-3xl font-bold mb-2">
                   {pageData.formSection.title}
@@ -171,19 +174,16 @@ export default async function ContactPage() {
                 <p className="text-gray-300 mb-8">
                   {pageData.formSection.subtitle}
                 </p>
-
                 <ContactForm submitButtonText={pageData.formSection.submitButton} />
               </div>
             </div>
           </div>
         </div>
       </section>
-
       {/* Enhanced Stats Section */}
       <section className="py-24 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-pattern-dots opacity-30"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-        
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
@@ -192,7 +192,6 @@ export default async function ContactPage() {
             </h2>
             <div className="w-24 h-1 bg-red-500 mx-auto"></div>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { stat: pageData.stats.stat1, icon: "🎯", delay: 0 },

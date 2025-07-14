@@ -1,12 +1,17 @@
+// page.tsx
+// Home page for Performance Driven Media. Fetches homepage data from Sanity and renders hero, intro, trusted by, and logo carousel sections.
+
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import LogoCarousel from './components/LogoCarousel';
 
+// CTA button type
 interface CTA {
   label: string;
   link: string;
 }
 
+// Logo type
 interface Logo {
   asset: {
     url: string;
@@ -14,6 +19,7 @@ interface Logo {
   alt: string;
 }
 
+// Homepage data structure
 interface HomePageData {
   reelVideo: {
     asset: {
@@ -29,7 +35,9 @@ interface HomePageData {
   };
 }
 
+// Main HomePage component
 export default async function HomePage() {
+  // Fetch homepage data from Sanity CMS
   const data: HomePageData = await sanityClient.fetch(`*[_type == "homepage"][0]{
     reelVideo { asset -> { url } },
     heroHeadline,
@@ -44,6 +52,7 @@ export default async function HomePage() {
     }
   }`);
 
+  // Fallback if no video is found
   if (!data || !data.reelVideo?.asset?.url) {
     return (
       <main className="text-center py-10">
@@ -54,6 +63,7 @@ export default async function HomePage() {
 
   return (
     <main>
+      {/* Hero Section with background video and overlay */}
       <section className="relative w-full h-screen overflow-hidden">
         {/* Background Video */}
         <video
@@ -87,6 +97,7 @@ export default async function HomePage() {
             {data.heroHeadline}
           </h1>
           
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
             {data.primaryCTA && (
               <Link

@@ -1,10 +1,15 @@
+// blog/page.tsx
+// Blog page for Performance Driven Media. Fetches blog data from Sanity and renders hero, stats, featured case study, articles, and CTA sections.
+
 import { sanityClient } from '@/app/lib/sanity';
 
+// Stat type
 interface Stat {
   number: string;
   label: string;
 }
 
+// Stats section type
 interface Stats {
   title: string;
   stat1: Stat;
@@ -12,6 +17,7 @@ interface Stats {
   stat3: Stat;
 }
 
+// Featured case study type
 interface FeaturedCaseStudy {
   title: string;
   subtitle: string;
@@ -20,6 +26,7 @@ interface FeaturedCaseStudy {
   ctaLink: string;
 }
 
+// Article type
 interface Article {
   title: string;
   excerpt?: string;
@@ -28,11 +35,13 @@ interface Article {
   link?: string;
 }
 
+// Articles section type
 interface ArticlesSection {
   title: string;
   subtitle: string;
 }
 
+// CTA section type
 interface CTASection {
   title: string;
   subtitle: string;
@@ -40,6 +49,7 @@ interface CTASection {
   buttonLink: string;
 }
 
+// Blog page data structure
 interface BlogPageData {
   heroTitle: string;
   heroSubtitle: string;
@@ -50,7 +60,9 @@ interface BlogPageData {
   ctaSection: CTASection;
 }
 
+// Main BlogPage component
 export default async function BlogPage() {
+  // Fetch blog page data from Sanity CMS
   const data: BlogPageData = await sanityClient.fetch(
     `*[_type == "blogPage"][0]{
       heroTitle,
@@ -99,7 +111,7 @@ export default async function BlogPage() {
       stat3: { number: '30 Min', label: 'Avg. Runtime' }
     },
     featuredCaseStudy: {
-      title: 'How Drill Doctor Sold 2 Million Units Through Long‑Form Infomercials',
+      title: 'How Drill Doctor Sold 2 Million Units Through Long Form Infomercials',
       subtitle: 'A deep dive into the strategy that revolutionized direct response television',
       highlights: [
         '30-minute demo-heavy infomercial',
@@ -128,7 +140,7 @@ export default async function BlogPage() {
         readTime: '6 min read'
       },
       {
-        title: 'Top Performing Infomercial Formats in 2024–2025',
+        title: 'Top Performing Infomercial Formats in 2024 2025',
         excerpt: 'The most effective formats, timing, and creative approaches for maximum viewer engagement.',
         category: 'Trends',
         readTime: '10 min read'
@@ -156,7 +168,17 @@ export default async function BlogPage() {
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-red-100 to-red-300 bg-clip-text text-transparent">
+          {/* Hero Title with gradient text */}
+          <h1
+            className="text-6xl md:text-7xl font-bold mb-6 leading-[1.2] pb-2 font-sans overflow-visible"
+            style={{
+              background: 'linear-gradient(to right, #fff, #fca5a5, #f87171)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block',
+              verticalAlign: 'middle',
+            }}
+          >
             {pageData.heroTitle}
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
@@ -308,7 +330,7 @@ export default async function BlogPage() {
                       href={article.link}
                       className="text-red-500 hover:text-red-400 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
                     >
-                      Read More →
+                      Read More 2
                     </a>
                   )}
                 </div>

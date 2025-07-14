@@ -1,3 +1,6 @@
+// services/page.tsx
+// Services page for Performance Driven Media. Fetches services, industries, and long-form benefits from Sanity and renders all sections.
+
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 

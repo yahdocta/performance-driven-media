@@ -1,7 +1,11 @@
+// Footer.tsx
+// Footer component with logo, CTA, contact info, and legal links. Data is fetched from Sanity.
+
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// Footer data structure
 interface FooterData {
   logo?: {
     asset: {
@@ -22,7 +26,9 @@ interface FooterData {
   copyrightText: string;
 }
 
+// Main Footer component
 export default async function Footer() {
+  // Fetch footer data from Sanity CMS
   const data: FooterData = await sanityClient.fetch(`*[_type == "footer"][0]{
     logo { asset -> { url } },
     headline,
@@ -48,7 +54,7 @@ export default async function Footer() {
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         {/* Main footer content */}
         <div className="text-center mb-8">
-          {/* Logo */}
+          {/* Logo (image or fallback text) */}
           <div className="mb-6">
             {data.logo?.asset?.url ? (
               <Image
@@ -98,7 +104,7 @@ export default async function Footer() {
         {/* Divider */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-6"></div>
 
-        {/* Bottom section */}
+        {/* Bottom section: copyright and legal links */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
           <p className="text-xs text-gray-400">{data.copyrightText}</p>
           <div className="flex space-x-6 text-xs">
