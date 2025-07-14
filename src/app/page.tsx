@@ -33,6 +33,8 @@ interface HomePageData {
     heading: string;
     logos: Logo[];
   };
+  introHeadline: string;
+  introParagraph: string;
 }
 
 // Main HomePage component
@@ -49,7 +51,9 @@ export default async function HomePage() {
         asset -> { url },
         alt
       }
-    }
+    },
+    introHeadline,
+    introParagraph
   }`);
 
   // Fallback if no video is found
@@ -132,17 +136,12 @@ export default async function HomePage() {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
         <div className="absolute top-10 right-10 w-20 h-20 bg-red-100 rounded-full opacity-50"></div>
         <div className="absolute bottom-10 left-10 w-16 h-16 bg-red-50 rounded-full opacity-50"></div>
-        
         <div className="max-w-4xl text-center relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 animate-fadeInUp">
-            Infomercials have
-            <span className="block bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
-              evolved.
-            </span>
+            {data.introHeadline}
           </h2>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            Today, they&apos;re precision-built marketing tools that blend powerful storytelling with measurable response. At{' '}
-            <span className="font-bold text-black">Performance Driven Media</span>, we craft campaigns that work just as hard as you do—designed to educate, inspire, and convert.
+            {data.introParagraph}
           </p>
         </div>
       </section>
