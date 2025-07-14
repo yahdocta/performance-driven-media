@@ -167,7 +167,7 @@ export default async function HomePage() {
               </span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto mt-4">
-              We've had the privilege of working with some of the world's most innovative companies
+              We&apos;ve had the privilege of working with some of the world&apos;s most innovative companies
             </p>
           </div>
         </div>
