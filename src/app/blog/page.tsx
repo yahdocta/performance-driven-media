@@ -273,14 +273,9 @@ export default async function BlogPage() {
                   </div>
                 </div>
                 
-                <Link
-                  href="/blog/how-drill-doctor-sold-2-million-units-through-long-form-infomercials"
-                  className="inline-block bg-red-500 hover:bg-red-600 text-black px-8 py-4 text-lg font-bold transition-colors duration-300 mt-2"
-                  tabIndex={-1}
-                  onClick={e => e.stopPropagation()}
-                >
+                <div className="inline-block bg-red-500 hover:bg-red-600 text-black px-8 py-4 text-lg font-bold transition-colors duration-300 mt-2">
                   {pageData.featuredCaseStudy.ctaLabel}
-                </Link>
+                </div>
               </div>
             </div>
           </Link>

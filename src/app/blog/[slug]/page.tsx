@@ -40,7 +40,10 @@ export async function generateStaticParams() {
 }
 
 // Main BlogPost component
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  // Await params for Next.js 15 compatibility
+  const { slug } = await params;
+  
   // Fetch the specific blog post from Sanity
   const post: BlogPost = await sanityClient.fetch(
     `*[_type == "blogPost" && slug.current == $slug][0] {
@@ -58,7 +61,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       publishedAt,
       body
     }`,
-    { slug: params.slug }
+    { slug }
   );
 
   // If post doesn't exist, return 404
@@ -87,20 +90,24 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
         <div className="relative max-w-4xl mx-auto px-4">
           {/* Back to Blog Link */}
-          <Link 
-            href="/blog"
-            className="inline-flex items-center text-red-400 hover:text-red-300 mb-8 transition-colors duration-300"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Blog
-          </Link>
+          <div className="mb-6">
+            <Link 
+              href="/blog"
+              className="inline-flex items-center text-red-400 hover:text-red-300 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Blog
+            </Link>
+          </div>
 
           {/* Category Badge */}
           {post.category && (
-            <div className="inline-block bg-red-500/20 text-red-400 px-4 py-2 rounded text-sm font-medium mb-6">
-              {post.category}
+            <div className="block mb-8">
+              <span className="inline-block bg-red-500/20 text-red-400 px-4 py-2 rounded text-sm font-medium">
+                {post.category}
+              </span>
             </div>
           )}
 
@@ -141,13 +148,13 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       {/* Main Image */}
       {post.mainImage && (
         <section className="py-12 bg-black">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-3xl mx-auto px-4">
             <div className="relative">
               <Image
                 src={post.mainImage.asset.url}
                 alt={post.title}
-                width={1200}
-                height={600}
+                width={800}
+                height={400}
                 className="w-full h-auto rounded-lg"
                 priority
               />
@@ -160,11 +167,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <section className="py-16 bg-black">
         <div className="max-w-4xl mx-auto px-4">
           <article className="prose prose-invert prose-lg max-w-none">
-            {post.body && (
-              <div className="prose prose-invert prose-lg max-w-none">
-                <PortableText value={post.body} />
-              </div>
-            )}
+            {post.body && <PortableText value={post.body} />}
           </article>
         </div>
       </section>
