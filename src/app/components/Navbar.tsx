@@ -103,7 +103,7 @@ export default async function Navbar() {
         </div>
 
         {/* Mobile: Centered logo and hamburger menu */}
-        <div className="sm:hidden flex items-center justify-center gap-4 w-full">
+        <div className="sm:hidden flex items-center justify-center gap-8 w-full">
           {/* Logo (image or text fallback) */}
           <Link href="/" className="flex items-center gap-3 group">
             {data.logo?.asset?.url ? (
