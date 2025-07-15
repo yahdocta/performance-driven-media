@@ -31,12 +31,12 @@ export default function MobileMenu({ navigationLinks }: MobileMenuProps) {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="sm:hidden absolute top-full left-0 w-full bg-black/95 shadow-lg z-50">
-          <div className="flex flex-col py-2">
+          <div className="flex flex-col items-center justify-center py-6 min-h-[200px]">
             {navigationLinks?.map((link, index) => (
               <Link
                 key={index}
                 href={link.url}
-                className="text-gray-300 hover:text-red-700 transition-all duration-300 font-semibold px-6 py-3 border-b border-gray-800"
+                className="text-white hover:text-red-700 transition-all duration-300 font-bold text-lg px-6 py-4 text-center w-full"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
