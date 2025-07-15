@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import type { JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -76,7 +75,7 @@ export default function IndustriesGrid({ industries, header, subhead }: Industri
         },
       }
     );
-    return () => ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
+    return () => ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill());
   }, [industries]);
 
   return (
