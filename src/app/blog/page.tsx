@@ -2,6 +2,8 @@
 // Blog page for Performance Driven Media. Fetches blog data from Sanity and renders hero, stats, featured case study, articles, and CTA sections.
 
 import { sanityClient } from '@/app/lib/sanity';
+import Link from 'next/link';
+import Image from 'next/image';
 
 // Stat type
 interface Stat {
@@ -26,13 +28,22 @@ interface FeaturedCaseStudy {
   ctaLink: string;
 }
 
-// Article type
-interface Article {
+// Blog post type
+interface BlogPost {
+  _id: string;
   title: string;
+  slug: {
+    current: string;
+  };
   excerpt?: string;
   category?: string;
   readTime?: string;
-  link?: string;
+  mainImage?: {
+    asset: {
+      url: string;
+    };
+  };
+  publishedAt?: string;
 }
 
 // Articles section type
@@ -56,7 +67,6 @@ interface BlogPageData {
   stats: Stats;
   featuredCaseStudy: FeaturedCaseStudy;
   articlesSection: ArticlesSection;
-  otherArticles: Article[];
   ctaSection: CTASection;
 }
 
@@ -84,19 +94,30 @@ export default async function BlogPage() {
         title,
         subtitle
       },
-      otherArticles[]{
-        title,
-        excerpt,
-        category,
-        readTime,
-        link
-      },
       ctaSection {
         title,
         subtitle,
         buttonText,
         buttonLink
       }
+    }`
+  );
+
+  // Fetch all blog posts from Sanity
+  const blogPosts: BlogPost[] = await sanityClient.fetch(
+    `*[_type == "blogPost"] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      excerpt,
+      category,
+      readTime,
+      mainImage {
+        asset -> {
+          url
+        }
+      },
+      publishedAt
     }`
   );
 
@@ -126,26 +147,6 @@ export default async function BlogPage() {
       title: 'Latest Insights',
       subtitle: 'Expert analysis and proven strategies from the front lines of performance-driven media.'
     },
-    otherArticles: [
-      {
-        title: 'Why Long-Form Still Wins in 2025',
-        excerpt: 'Despite the rise of short-form content, long-form infomercials continue to deliver superior conversion rates and ROI.',
-        category: 'Strategy',
-        readTime: '8 min read'
-      },
-      {
-        title: 'Short vs. Long: Where Your Funnel Actually Converts',
-        excerpt: 'Data-driven analysis of conversion rates across different content lengths and formats.',
-        category: 'Analytics',
-        readTime: '6 min read'
-      },
-      {
-        title: 'Top Performing Infomercial Formats in 2024 2025',
-        excerpt: 'The most effective formats, timing, and creative approaches for maximum viewer engagement.',
-        category: 'Trends',
-        readTime: '10 min read'
-      }
-    ],
     ctaSection: {
       title: 'Ready to See Real Results?',
       subtitle: 'Let\'s discuss how performance-driven media can transform your business.',
@@ -297,42 +298,52 @@ export default async function BlogPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pageData.otherArticles.map((article, idx) => (
+            {blogPosts.map((post) => (
               <article 
-                key={idx}
+                key={post._id}
                 className="bg-black border border-gray-800 p-6 hover:border-red-500 transition-colors duration-300 group"
               >
-                {article.category && (
+                {post.mainImage && (
+                  <div className="mb-4">
+                    <Image
+                      src={post.mainImage.asset.url}
+                      alt={post.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-48 object-cover rounded"
+                    />
+                  </div>
+                )}
+                
+                {post.category && (
                   <div className="inline-block bg-red-500/20 text-red-400 px-3 py-1 rounded text-sm font-medium mb-4">
-                    {article.category}
+                    {post.category}
                   </div>
                 )}
                 
                 <h3 className="text-xl font-bold mb-3 group-hover:text-red-400 transition-colors">
-                  {article.title}
+                  {post.title}
                 </h3>
                 
-                {article.excerpt && (
+                {post.excerpt && (
                   <p className="text-gray-400 mb-4 leading-relaxed">
-                    {article.excerpt}
+                    {post.excerpt}
                   </p>
                 )}
                 
                 <div className="flex items-center justify-between">
-                  {article.readTime && (
+                  {post.readTime && (
                     <span className="text-sm text-gray-500">
-                      {article.readTime}
+                      {post.readTime}
                     </span>
                   )}
                   
-                  {article.link && (
-                    <a
-                      href={article.link}
-                      className="text-red-500 hover:text-red-400 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
-                    >
-                      Read More 2
-                    </a>
-                  )}
+                  <Link
+                    href={`/blog/${post.slug.current}`}
+                    className="text-red-500 hover:text-red-400 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
+                  >
+                    Read More →
+                  </Link>
                 </div>
               </article>
             ))}
