@@ -295,19 +295,14 @@ export default async function WorkPage() {
           <p className="text-lg md:text-xl text-gray-700 mt-6 leading-relaxed max-w-3xl mx-auto mb-16">
             {pageData.clientsSection.description}
           </p>
-          
-          {/* Industries Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {pageData.clientsSection.industries.map((industry, idx) => (
-              <div 
-                key={idx}
-                className="group bg-white rounded-lg p-6 border border-gray-200 hover:border-red-300 transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                <h3 className="text-lg font-bold text-black group-hover:text-red-600 transition-colors duration-300">
-                  {industry}
-                </h3>
-              </div>
-            ))}
+          {/* Replaced industries grid with a button to services page */}
+          <div className="flex justify-center">
+            <Link
+              href="/services"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-red-500/25"
+            >
+              Explore Our Services
+            </Link>
           </div>
         </div>
       </section>

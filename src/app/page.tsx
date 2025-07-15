@@ -4,6 +4,7 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import LogoCarousel from './components/logo-carousel';
+import HomeIntroSection from './components/HomeIntroSection';
 
 // CTA button type
 interface CTA {
@@ -131,27 +132,7 @@ export default async function HomePage() {
       </section>
 
       {/* Intro Statement Section */}
-      <section className="w-full bg-gradient-to-br from-gray-50 to-white py-20 px-4 md:px-0 flex justify-center relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-        <div className="absolute top-10 right-10 w-20 h-20 bg-red-100 rounded-full opacity-50"></div>
-        <div className="absolute bottom-10 left-10 w-16 h-16 bg-red-50 rounded-full opacity-50"></div>
-        <div className="max-w-4xl text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 animate-fadeInUp">
-            {data.introHeadline?.split('\n')[0]}
-            {data.introHeadline?.split('\n')[1] && (
-              <span className="block bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
-                {data.introHeadline.split('\n')[1]}
-              </span>
-            )}
-          </h2>
-          <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            {data.introParagraph?.split('Performance Driven Media').length > 1
-              ? <>{data.introParagraph.split('Performance Driven Media')[0]}<span className="font-bold text-black">Performance Driven Media</span>{data.introParagraph.split('Performance Driven Media')[1]}</>
-              : data.introParagraph}
-          </p>
-        </div>
-      </section>
+      <HomeIntroSection introHeadline={data.introHeadline} introParagraph={data.introParagraph} />
 
       {/* Trusted by Industry Leaders Section */}
       <section className="py-8 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
@@ -175,7 +156,7 @@ export default async function HomePage() {
 
       {/* Logo Carousel Section */}
       {data.logoCarousel && (
-        <section className="py-4 bg-black relative overflow-hidden">
+        <section className="py-1 bg-black relative overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
           <div className="relative z-10">
