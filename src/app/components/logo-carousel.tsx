@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 
 // Logo type definition for Sanity compatibility
 interface Logo {
@@ -55,9 +56,11 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
                 key={`first-${index}`}
                 className="flex-shrink-0 flex items-center justify-center w-56 h-32 md:w-64 md:h-40"
               >
-                <img
+                <Image
                   src={logo.asset.url}
                   alt={logo.alt}
+                  width={256}
+                  height={160}
                   className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
@@ -69,9 +72,11 @@ export default function LogoCarousel({ logos }: LogoCarouselProps) {
                 key={`second-${index}`}
                 className="flex-shrink-0 flex items-center justify-center w-56 h-32 md:w-64 md:h-40"
               >
-                <img
+                <Image
                   src={logo.asset.url}
                   alt={logo.alt}
+                  width={256}
+                  height={160}
                   className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>

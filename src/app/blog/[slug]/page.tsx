@@ -23,7 +23,17 @@ interface BlogPost {
     };
   };
   publishedAt?: string;
-  body?: any[];
+  body?: Array<{
+    _type: string;
+    children?: Array<{
+      _type: string;
+      text: string;
+      marks?: string[];
+    }>;
+    style?: string;
+    listItem?: string;
+    level?: number;
+  }>;
 }
 
 // Generate static params for all blog posts
@@ -184,7 +194,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             Ready to See Real Results?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how performance-driven media can transform your business.
+            Let&apos;s discuss how performance-driven media can transform your business.
           </p>
           
           <Link
