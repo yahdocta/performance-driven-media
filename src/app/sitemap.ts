@@ -5,7 +5,12 @@ import { sanityClient } from './lib/sanity';
 
 export const dynamic = 'force-static';
 
-export default async function sitemap() {
+export default async function sitemap(): Promise<Array<{
+  url: string;
+  lastModified: Date;
+  changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  priority: number;
+}>> {
     const baseUrl = 'https://performancedrivenmedia.com'; // Update with your actual domain
 
     // Static pages

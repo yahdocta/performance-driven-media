@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /pdmsite/sanity/
+Disallow: /sanity/
+
+Sitemap: https://performancedrivenmedia.com/sitemap.xml
