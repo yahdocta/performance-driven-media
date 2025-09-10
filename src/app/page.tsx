@@ -81,8 +81,7 @@ export default async function HomePage() {
           className="absolute top-0 left-0 w-full h-full object-cover select-none"
         />
 
-        {/* Enhanced Dark Overlay with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10"></div>
+        {/* Removed dark overlay for cleaner video display */}
 
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden z-5">
@@ -101,7 +100,7 @@ export default async function HomePage() {
           >
             {data.heroHeadline}
           </h1>
-          
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
             {data.primaryCTA && (
@@ -138,7 +137,7 @@ export default async function HomePage() {
       <section className="py-8 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 bg-pattern-dots opacity-50"></div>
-        
+
         <div className="relative z-10">
           <div className="text-center px-4">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white animate-fadeInUp leading-tight">
