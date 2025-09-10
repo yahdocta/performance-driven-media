@@ -5,6 +5,8 @@ import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import FeaturedCaseStudyWrapper from './FeaturedCaseStudyWrapper';
 import Image from 'next/image';
+import { generateMetadata as generateSEOMetadata } from '../lib/seo';
+import { Metadata } from 'next';
 
 // Stat type
 interface Stat {
@@ -71,7 +73,28 @@ interface BlogPageData {
   ctaSection: CTASection;
 }
 
-// Main BlogPage component
+// Generate SEO metadata for the blog page
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSEOMetadata({
+    title: 'Blog - Video Production Insights & Case Studies',
+    description: 'Discover the latest insights, case studies, and strategies in video production, direct-response marketing, and performance-driven content creation from industry experts.',
+    keywords: [
+      'video production blog',
+      'direct response marketing insights',
+      'infomercial case studies',
+      'video marketing strategies',
+      'performance marketing tips',
+      'video production tutorials',
+      'marketing video best practices',
+      'conversion optimization blog',
+      'video advertising insights',
+      'content marketing strategies'
+    ],
+    url: '/blog',
+    type: 'website',
+  });
+}
+
 export default async function BlogPage() {
   // Fetch blog page data from Sanity CMS
   const data: BlogPageData = await sanityClient.fetch(
@@ -199,7 +222,7 @@ export default async function BlogPage() {
               { stat: pageData.stats.stat2, delay: 200 },
               { stat: pageData.stats.stat3, delay: 400 }
             ].map((item, idx) => (
-              <div 
+              <div
                 key={idx}
                 className="text-center group hover:scale-105 transition-transform duration-300"
                 style={{ animationDelay: `${item.delay}ms` }}
@@ -236,10 +259,10 @@ export default async function BlogPage() {
               {pageData.articlesSection.subtitle}
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
-              <article 
+              <article
                 key={post._id}
                 className="bg-black border border-gray-800 p-6 hover:border-red-500 transition-colors duration-300 group"
               >
@@ -254,30 +277,30 @@ export default async function BlogPage() {
                     />
                   </div>
                 )}
-                
+
                 {post.category && (
                   <div className="inline-block bg-red-500/20 text-red-400 px-3 py-1 rounded text-sm font-medium mb-4">
                     {post.category}
                   </div>
                 )}
-                
+
                 <h3 className="text-xl font-bold mb-3 group-hover:text-red-400 transition-colors">
                   {post.title}
                 </h3>
-                
+
                 {post.excerpt && (
                   <p className="text-gray-400 mb-4 leading-relaxed">
                     {post.excerpt}
                   </p>
                 )}
-                
+
                 <div className="flex items-center justify-between">
                   {post.readTime && (
                     <span className="text-sm text-gray-500">
                       {post.readTime}
                     </span>
                   )}
-                  
+
                   <Link
                     href={`/blog/${post.slug.current}`}
                     className="text-red-500 hover:text-red-400 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
@@ -297,7 +320,7 @@ export default async function BlogPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
           <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
         </div>
-        
+
         <div className="max-w-4xl mx-auto px-4 text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {pageData.ctaSection.title}
@@ -305,7 +328,7 @@ export default async function BlogPage() {
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             {pageData.ctaSection.subtitle}
           </p>
-          
+
           {pageData.ctaSection.buttonLink && (
             <a
               href={pageData.ctaSection.buttonLink}

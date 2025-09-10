@@ -5,6 +5,8 @@ import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import LogoCarousel from './components/logo-carousel';
 import HomeIntroSection from './components/HomeIntroSection';
+import { generateMetadata as generateSEOMetadata } from './lib/seo';
+import { Metadata } from 'next';
 
 // CTA button type
 interface CTA {
@@ -36,6 +38,38 @@ interface HomePageData {
   };
   introHeadline: string;
   introParagraph: string;
+}
+
+// Generate SEO metadata for the homepage
+export async function generateMetadata(): Promise<Metadata> {
+  // Fetch homepage data for dynamic metadata
+  const data = await sanityClient.fetch(`*[_type == "homepage"][0]{
+    heroHeadline,
+    introHeadline,
+    introParagraph
+  }`);
+
+  const title = data?.heroHeadline || 'Performance Driven Media - High-Converting Video Production';
+  const description = data?.introParagraph || 'High-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content that drives measurable results.';
+
+  return generateSEOMetadata({
+    title,
+    description,
+    keywords: [
+      'video production agency',
+      'direct response marketing',
+      'infomercial production',
+      'commercial video production',
+      'performance marketing videos',
+      'conversion optimization',
+      'video advertising agency',
+      'marketing video production',
+      'video content creation',
+      'advertising video production'
+    ],
+    url: '/',
+    type: 'website',
+  });
 }
 
 // Main HomePage component

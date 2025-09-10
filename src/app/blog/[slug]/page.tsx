@@ -6,6 +6,9 @@ import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { generateMetadata as generateSEOMetadata } from '../../lib/seo';
+import { Metadata } from 'next';
+import SEOHead from '../../components/SEOHead';
 
 // Blog post type
 interface BlogPost {
@@ -49,11 +52,67 @@ export async function generateStaticParams() {
   }));
 }
 
+// Generate SEO metadata for individual blog posts
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+
+  // Fetch the specific blog post from Sanity
+  const post: BlogPost = await sanityClient.fetch(
+    `*[_type == "blogPost" && slug.current == $slug][0] {
+      title,
+      excerpt,
+      category,
+      publishedAt,
+      mainImage {
+        asset -> {
+          url
+        }
+      }
+    }`,
+    { slug }
+  );
+
+  if (!post) {
+    return {
+      title: 'Blog Post Not Found',
+      description: 'The requested blog post could not be found.',
+    };
+  }
+
+  const title = post.title;
+  const description = post.excerpt || `Read about ${post.title} on the Performance Driven Media blog.`;
+  const image = post.mainImage?.asset?.url;
+
+  return generateSEOMetadata({
+    title,
+    description,
+    keywords: [
+      'video production',
+      'direct response marketing',
+      'infomercial production',
+      'performance marketing',
+      'video advertising',
+      'commercial production',
+      'marketing videos',
+      'conversion optimization',
+      'video content creation',
+      'advertising agency',
+      post.category || '',
+    ].filter(Boolean),
+    image,
+    url: `/blog/${slug}`,
+    type: 'article',
+    publishedTime: post.publishedAt,
+    authors: ['Performance Driven Media'],
+    section: post.category,
+  });
+}
+
 // Main BlogPost component
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   // Await params for Next.js 15 compatibility
   const { slug } = await params;
-  
+
   // Fetch the specific blog post from Sanity
   const post: BlogPost = await sanityClient.fetch(
     `*[_type == "blogPost" && slug.current == $slug][0] {
@@ -89,8 +148,45 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     });
   };
 
+  // Generate structured data for the blog post
+  const articleStructuredData = {
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.mainImage?.asset?.url,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      '@type': 'Organization',
+      name: 'Performance Driven Media',
+      url: 'https://performancedrivenmedia.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Performance Driven Media',
+      url: 'https://performancedrivenmedia.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://performancedrivenmedia.com/logo.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://performancedrivenmedia.com/blog/${slug}`,
+    },
+    articleSection: post.category,
+    wordCount: post.body?.length || 0,
+  };
+
   return (
     <main className="min-h-screen bg-black text-white">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black py-20">
         <div className="absolute inset-0 overflow-hidden">
@@ -101,7 +197,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <div className="relative max-w-4xl mx-auto px-4">
           {/* Back to Blog Link */}
           <div className="mb-6">
-            <Link 
+            <Link
               href="/blog"
               className="inline-flex items-center text-red-400 hover:text-red-300 transition-colors duration-300"
             >
@@ -188,7 +284,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
           <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
         </div>
-        
+
         <div className="max-w-4xl mx-auto px-4 text-center relative">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to See Real Results?
@@ -196,7 +292,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Let&apos;s discuss how performance-driven media can transform your business.
           </p>
-          
+
           <Link
             href="/contact"
             className="inline-block bg-red-500 hover:bg-red-600 text-black px-8 py-4 text-lg font-bold transition-colors duration-300"

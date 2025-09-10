@@ -6,14 +6,36 @@ import { Inter } from 'next/font/google';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { sanityClient } from './lib/sanity';
+import { siteConfig, organizationStructuredData, websiteStructuredData } from './lib/seo';
 
 // Load Inter font from Google Fonts
 const inter = Inter({ subsets: ['latin'] });
 
-// Default site metadata
+// Enhanced site metadata with comprehensive SEO
 export const metadata = {
-  title: 'Performance Driven Media',
-  description: 'High-converting video production agency',
+  metadataBase: new URL('https://performancedrivenmedia.com'),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: siteConfig.authors,
+  creator: siteConfig.creator,
+  publisher: siteConfig.publisher,
+  robots: siteConfig.robots,
+  openGraph: siteConfig.openGraph,
+  twitter: siteConfig.twitter,
+  verification: siteConfig.verification,
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  category: 'Video Production',
+  classification: 'Business',
+  other: {
+    'msapplication-TileColor': '#dc2626',
+    'theme-color': '#dc2626',
+  },
 };
 
 // Fetch favicon from Sanity CMS
@@ -26,7 +48,7 @@ async function getFavicon() {
         }
       }
     }`);
-    
+
     if (data?.favicon?.asset?.url) {
       return data.favicon.asset.url;
     } else {
@@ -56,6 +78,20 @@ export default async function RootLayout({
         ) : (
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         )}
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
+          }}
+        />
       </head>
       <body className={inter.className}>
         {/* Shared Navbar at the top */}
