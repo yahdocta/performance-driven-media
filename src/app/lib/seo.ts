@@ -145,11 +145,11 @@ export function generateMetadata({
 
 // Generate JSON-LD structured data
 export function generateStructuredData({
-    type,
-    data,
+  type,
+  data,
 }: {
-    type: 'Organization' | 'WebSite' | 'Article' | 'VideoObject' | 'Service';
-    data: any;
+  type: 'Organization' | 'WebSite' | 'Article' | 'VideoObject' | 'Service';
+  data: Record<string, unknown>;
 }) {
     const baseStructuredData = {
         '@context': 'https://schema.org',

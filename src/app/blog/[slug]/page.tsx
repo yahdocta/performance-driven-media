@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { generateMetadata as generateSEOMetadata } from '../../lib/seo';
 import { Metadata } from 'next';
-import SEOHead from '../../components/SEOHead';
 
 // Blog post type
 interface BlogPost {

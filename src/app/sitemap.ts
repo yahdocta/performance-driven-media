@@ -3,6 +3,8 @@
 
 import { sanityClient } from './lib/sanity';
 
+export const dynamic = 'force-static';
+
 export default async function sitemap() {
     const baseUrl = 'https://performancedrivenmedia.com'; // Update with your actual domain
 
@@ -58,19 +60,19 @@ export default async function sitemap() {
         },
     ];
 
-    // Dynamic blog posts
-    let blogPosts: any[] = [];
-    try {
-        blogPosts = await sanityClient.fetch(`
+  // Dynamic blog posts
+  let blogPosts: Array<{ slug: { current: string }; publishedAt?: string; _updatedAt?: string }> = [];
+  try {
+    blogPosts = await sanityClient.fetch(`
       *[_type == "blogPost" && !(_id in path("drafts.**"))] {
         slug,
         publishedAt,
         _updatedAt
       }
     `);
-    } catch (error) {
-        console.error('Error fetching blog posts for sitemap:', error);
-    }
+  } catch (error) {
+    console.error('Error fetching blog posts for sitemap:', error);
+  }
 
     const blogPages = blogPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug.current}`,
@@ -79,18 +81,18 @@ export default async function sitemap() {
         priority: 0.7,
     }));
 
-    // Dynamic work/portfolio pages
-    let workItems: any[] = [];
-    try {
-        workItems = await sanityClient.fetch(`
+  // Dynamic work/portfolio pages
+  let workItems: Array<{ slug: { current: string }; _updatedAt?: string }> = [];
+  try {
+    workItems = await sanityClient.fetch(`
       *[_type == "portfolioItem" && !(_id in path("drafts.**"))] {
         slug,
         _updatedAt
       }
     `);
-    } catch (error) {
-        console.error('Error fetching work items for sitemap:', error);
-    }
+  } catch (error) {
+    console.error('Error fetching work items for sitemap:', error);
+  }
 
     const workPages = workItems.map((item) => ({
         url: `${baseUrl}/work/${item.slug.current}`,

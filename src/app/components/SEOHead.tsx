@@ -5,7 +5,7 @@ import { generateStructuredData } from '../lib/seo';
 
 interface SEOHeadProps {
     type?: 'Article' | 'VideoObject' | 'Service' | 'Organization' | 'WebSite';
-    data?: any;
+    data?: Record<string, unknown>;
     breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
