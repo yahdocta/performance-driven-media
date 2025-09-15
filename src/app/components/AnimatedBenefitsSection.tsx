@@ -67,35 +67,35 @@ export default function AnimatedBenefitsSection({ benefits }: AnimatedBenefitsSe
                     </div>
 
                     <div className="flex-1 relative">
-                        {/* Custom performance images */}
-                        {benefit.icon === 'clock' ? (
-                            // Engagement image
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                <img
-                                    src="/images/engagement.png"
-                                    alt="Engagement"
-                                    className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-                                />
-                            </div>
-                        ) : benefit.icon === 'chart' ? (
-                            // Icon Performance image
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                <img
-                                    src="/images/icon performance.png"
-                                    alt="Performance"
-                                    className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-                                />
-                            </div>
-                        ) : (
-                            // Racecar image
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                <img
-                                    src="/images/racecar.png"
-                                    alt="Racecar"
-                                    className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-                                />
-                            </div>
-                        )}
+            {/* Custom performance images */}
+            {benefit.icon === 'clock' ? (
+              // Engagement image
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                <img 
+                  src="/images/performance-driven-media-engagement-metrics.png" 
+                  alt="Performance Driven Media - Extended Engagement Metrics for Long-Form Video Content" 
+                  className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            ) : benefit.icon === 'chart' ? (
+              // Icon Performance image
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                <img 
+                  src="/images/performance-driven-media-conversion-optimization.png" 
+                  alt="Performance Driven Media - Higher Conversion Rates Through Strategic Video Marketing" 
+                  className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            ) : (
+              // Racecar image
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                <img 
+                  src="/images/performance-driven-media-roi-acceleration.png" 
+                  alt="Performance Driven Media - Proven ROI Acceleration with 30-Minute Long-Form Video Campaigns" 
+                  className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            )}
                     </div>
                 </div>
             ))}
