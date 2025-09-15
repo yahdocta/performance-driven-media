@@ -5,6 +5,7 @@ import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import LogoCarousel from './components/logo-carousel';
 import HomeIntroSection from './components/HomeIntroSection';
+import ServicesSection from './components/ServicesSection';
 import { generateMetadata as generateSEOMetadata } from './lib/seo';
 import { Metadata } from 'next';
 
@@ -161,6 +162,9 @@ export default async function HomePage() {
 
       {/* Intro Statement Section */}
       <HomeIntroSection introHeadline={data.introHeadline} introParagraph={data.introParagraph} />
+
+      {/* Services Section */}
+      <ServicesSection />
 
       {/* Trusted by Industry Leaders Section */}
       <section className="py-8 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
