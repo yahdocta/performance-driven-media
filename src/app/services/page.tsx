@@ -4,7 +4,6 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Link from 'next/link';
 import IndustriesGrid from "./IndustriesGrid";
-import { Clock3, BarChart3, BadgeDollarSign } from 'lucide-react';
 import AnimatedBenefitsSection from '../components/AnimatedBenefitsSection';
 
 interface Industry {

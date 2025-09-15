@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Clock3, BarChart3, BadgeDollarSign } from "lucide-react";
+import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 type Benefit = {
@@ -51,7 +52,7 @@ export default function AnimatedBenefitsSection({ benefits }: AnimatedBenefitsSe
             {benefits.map((benefit, idx) => (
                 <div
                     key={idx}
-                    ref={el => benefitRefs.current[idx] = el}
+                    ref={el => { benefitRefs.current[idx] = el; }}
                     className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-16 relative`}
                 >
                     <div className="flex-1">
@@ -71,27 +72,33 @@ export default function AnimatedBenefitsSection({ benefits }: AnimatedBenefitsSe
             {benefit.icon === 'clock' ? (
               // Engagement image
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <img 
+                <Image 
                   src="/images/performance-driven-media-engagement-metrics.png" 
                   alt="Performance Driven Media - Extended Engagement Metrics for Long-Form Video Content" 
+                  width={96}
+                  height={96}
                   className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
             ) : benefit.icon === 'chart' ? (
               // Icon Performance image
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <img 
+                <Image 
                   src="/images/performance-driven-media-conversion-optimization.png" 
                   alt="Performance Driven Media - Higher Conversion Rates Through Strategic Video Marketing" 
+                  width={96}
+                  height={96}
                   className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
             ) : (
               // Racecar image
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <img 
+                <Image 
                   src="/images/performance-driven-media-roi-acceleration.png" 
                   alt="Performance Driven Media - Proven ROI Acceleration with 30-Minute Long-Form Video Campaigns" 
+                  width={96}
+                  height={96}
                   className="w-24 h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
