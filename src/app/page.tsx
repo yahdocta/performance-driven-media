@@ -137,7 +137,7 @@ export default async function HomePage() {
         </div>
 
         {/* CTA Buttons - Positioned at bottom */}
-        <div className="absolute bottom-56 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 z-20">
           <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp justify-center" style={{ animationDelay: '0.3s' }}>
             {data.primaryCTA && (
               <Link
