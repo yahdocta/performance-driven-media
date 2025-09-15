@@ -8,8 +8,9 @@ export const siteConfig = {
     name: 'Performance Driven Media',
     description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
     url: 'https://performancedrivenmedia.com', // Update with your actual domain
-    ogImage: '/og-image.jpg', // You'll need to create this
+    ogImage: '/og-image.svg',
     keywords: [
+        'performance driven media',
         'video production',
         'direct response marketing',
         'infomercial production',
@@ -19,7 +20,10 @@ export const siteConfig = {
         'marketing videos',
         'conversion optimization',
         'video content creation',
-        'advertising agency'
+        'advertising agency',
+        '30 minute infomercials',
+        'long form video production',
+        'direct response video agency'
     ],
     authors: [{ name: 'Performance Driven Media' }],
     creator: 'Performance Driven Media',
@@ -44,7 +48,7 @@ export const siteConfig = {
         description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
         images: [
             {
-                url: '/og-image.jpg',
+                url: '/og-image.svg',
                 width: 1200,
                 height: 630,
                 alt: 'Performance Driven Media - Video Production Agency',
@@ -55,7 +59,7 @@ export const siteConfig = {
         card: 'summary_large_image',
         title: 'Performance Driven Media - High-Converting Video Production',
         description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
-        images: ['/og-image.jpg'],
+        images: ['/og-image.svg'],
         creator: '@performancedrivenmedia', // Update with your actual Twitter handle
     },
     verification: {
@@ -193,6 +197,9 @@ export const organizationStructuredData = generateStructuredData({
             'Infomercial Production',
             'Commercial Production',
             'Performance Marketing',
+            '30-Minute Infomercials',
+            'Long-Form Video Content',
+            'Performance-Driven Video Production',
         ],
     },
 });
