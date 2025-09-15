@@ -4,6 +4,8 @@
 import { sanityClient } from '@/app/lib/sanity';
 import Image from 'next/image';
 import Link from 'next/link';
+import { generateMetadata as generateSEOMetadata } from '../lib/seo';
+import { Metadata } from 'next';
 
 // About page data structure
 interface AboutPageData {
@@ -17,6 +19,31 @@ interface AboutPageData {
       asset: { url: string };
     };
   };
+}
+
+// Generate SEO metadata for the about page
+export async function generateMetadata(): Promise<Metadata> {
+  const title = 'About Us - Performance Driven Media';
+  const description = 'Learn about Performance Driven Media - a high-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content. Fusing Hollywood storytelling with performance-driven strategy.';
+
+  return generateSEOMetadata({
+    title,
+    description,
+    keywords: [
+      'about performance driven media',
+      'video production agency team',
+      'direct response marketing experts',
+      'infomercial production company',
+      'video advertising specialists',
+      'performance marketing team',
+      'commercial production agency',
+      'marketing video experts',
+      'video content creation team',
+      'advertising agency about'
+    ],
+    url: '/about',
+    type: 'website',
+  });
 }
 
 // Main AboutPage component

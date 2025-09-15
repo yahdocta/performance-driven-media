@@ -51,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }`);
 
   const title = data?.heroHeadline || 'Performance Driven Media - High-Converting Video Production';
-  const description = data?.introParagraph || 'High-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content that drives measurable results.';
+  const description = data?.introParagraph || 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.';
 
   return generateSEOMetadata({
     title,

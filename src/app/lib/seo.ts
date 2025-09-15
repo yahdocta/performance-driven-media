@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 // Base site configuration
 export const siteConfig = {
     name: 'Performance Driven Media',
-    description: 'High-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content that drives measurable results.',
+    description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
     url: 'https://performancedrivenmedia.com', // Update with your actual domain
     ogImage: '/og-image.jpg', // You'll need to create this
     keywords: [
@@ -41,7 +41,7 @@ export const siteConfig = {
         url: 'https://performancedrivenmedia.com',
         siteName: 'Performance Driven Media',
         title: 'Performance Driven Media - High-Converting Video Production',
-        description: 'High-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content that drives measurable results.',
+        description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
         images: [
             {
                 url: '/og-image.jpg',
@@ -54,7 +54,7 @@ export const siteConfig = {
     twitter: {
         card: 'summary_large_image',
         title: 'Performance Driven Media - High-Converting Video Production',
-        description: 'High-converting video production agency specializing in direct-response marketing, infomercials, and performance-driven content that drives measurable results.',
+        description: 'High-converting video production agency specializing in 30-minute infomercials, direct-response marketing, and performance-driven content. From 30-second spots to 30-minute epics - we create videos that drive measurable results.',
         images: ['/og-image.jpg'],
         creator: '@performancedrivenmedia', // Update with your actual Twitter handle
     },
