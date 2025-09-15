@@ -125,7 +125,7 @@ export default async function HomePage() {
         </div>
 
         {/* Overlay Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-20 translate-y-[-10%]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <h1
             className="text-white text-4xl md:text-6xl lg:text-7xl font-black mb-8 text-center tracking-tight animate-fadeInUp"
             style={{
@@ -134,9 +134,11 @@ export default async function HomePage() {
           >
             {data.heroHeadline}
           </h1>
+        </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+        {/* CTA Buttons - Positioned at bottom */}
+        <div className="absolute bottom-56 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp justify-center" style={{ animationDelay: '0.3s' }}>
             {data.primaryCTA && (
               <Link
                 href={data.primaryCTA.link}
@@ -153,13 +155,6 @@ export default async function HomePage() {
                 {data.secondaryCTA.label}
               </Link>
             )}
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-            </div>
           </div>
         </div>
       </section>

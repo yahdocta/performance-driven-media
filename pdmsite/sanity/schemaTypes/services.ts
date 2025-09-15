@@ -85,6 +85,29 @@ export default defineType({
           type: 'string',
           initialValue: '/contact',
         },
+        {
+          name: 'video',
+          title: '30-Minute Video',
+          type: 'file',
+          options: {
+            accept: 'video/*'
+          },
+          description: 'Upload a video file to replace the "30 MINUTES" text box',
+        },
+        {
+          name: 'videoLink',
+          title: 'Video Link',
+          type: 'string',
+          description: 'Link to a portfolio item when the video is clicked',
+          initialValue: '/work',
+        },
+        {
+          name: 'transitionText',
+          title: 'Transition Text',
+          type: 'text',
+          description: 'Text that appears between the video section and the other content formats',
+          initialValue: 'But we don\'t stop there. We create content across all formats to maximize your reach and impact.',
+        },
       ],
     },
     {
