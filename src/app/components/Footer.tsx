@@ -50,7 +50,7 @@ export default async function Footer() {
       {/* Background decoration */}
       <div className="absolute inset-0 bg-pattern-dots opacity-30"></div>
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-      
+
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         {/* Main footer content */}
         <div className="text-center mb-8">
@@ -96,7 +96,6 @@ export default async function Footer() {
           </div>
           <div className="text-center md:text-right">
             <h3 className="text-lg font-bold mb-3 text-red-400">{data.contactInfoTitle}</h3>
-            <p className="text-gray-300 mb-2 text-sm">Phone: {data.phoneNumber}</p>
             <p className="text-gray-300 text-sm">Email: {data.emailAddress}</p>
           </div>
         </div>
