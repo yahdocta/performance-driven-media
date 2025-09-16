@@ -76,9 +76,10 @@ interface BlogPageData {
 // Generate SEO metadata for the blog page
 export async function generateMetadata(): Promise<Metadata> {
   return generateSEOMetadata({
-    title: 'Blog - Video Production Insights & Case Studies',
-    description: 'Discover the latest insights, case studies, and strategies in video production, direct-response marketing, and performance-driven content creation from industry experts.',
+    title: 'Blog - Performance Driven Media | Video Production Insights & Case Studies',
+    description: 'Discover the latest insights, case studies, and strategies in video production, direct-response marketing, and performance-driven content creation from Performance Driven Media experts. Learn proven tactics for 30-minute infomercials and high-converting video campaigns.',
     keywords: [
+      'performance driven media blog',
       'video production blog',
       'direct response marketing insights',
       'infomercial case studies',
@@ -88,7 +89,10 @@ export async function generateMetadata(): Promise<Metadata> {
       'marketing video best practices',
       'conversion optimization blog',
       'video advertising insights',
-      'content marketing strategies'
+      'content marketing strategies',
+      '30 minute infomercials',
+      'long form video content',
+      'performance driven media insights'
     ],
     url: '/blog',
     type: 'website',
@@ -181,8 +185,45 @@ export default async function BlogPage() {
 
   const pageData = data || fallbackData;
 
+  // Generate blog schema markup
+  const blogStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Performance Driven Media Blog',
+    description: 'Video production insights, case studies, and strategies from Performance Driven Media experts',
+    url: 'https://performancedrivenmedia.com/blog',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Performance Driven Media',
+      url: 'https://performancedrivenmedia.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://performancedrivenmedia.com/og-image.svg',
+      },
+    },
+    blogPost: blogPosts.map(post => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.excerpt,
+      url: `https://performancedrivenmedia.com/blog/${post.slug.current}`,
+      datePublished: post.publishedAt,
+      author: {
+        '@type': 'Organization',
+        name: 'Performance Driven Media',
+      },
+      image: post.mainImage?.asset?.url,
+    })),
+  };
+
   return (
     <main className="min-h-screen bg-black text-white">
+      {/* Blog Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogStructuredData),
+        }}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black py-16">
         {/* Animated Background Elements */}

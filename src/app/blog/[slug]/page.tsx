@@ -78,15 +78,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  const title = post.title;
-  const description = post.excerpt || `Read about ${post.title} on the Performance Driven Media blog.`;
+  const title = `${post.title} | Performance Driven Media Blog`;
+  const description = post.excerpt || `Discover insights about ${post.title} from Performance Driven Media's expert team. Learn proven strategies for video production, direct-response marketing, and performance-driven content.`;
   const image = post.mainImage?.asset?.url;
 
   return generateSEOMetadata({
     title,
     description,
     keywords: [
-      'video production',
+      'performance driven media',
+      'video production blog',
       'direct response marketing',
       'infomercial production',
       'performance marketing',
@@ -96,7 +97,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       'conversion optimization',
       'video content creation',
       'advertising agency',
+      '30 minute infomercials',
+      'long form video content',
       post.category || '',
+      post.title.toLowerCase(),
     ].filter(Boolean),
     image,
     url: `/blog/${slug}`,
@@ -104,6 +108,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     publishedTime: post.publishedAt,
     authors: ['Performance Driven Media'],
     section: post.category,
+    tags: [post.category, 'video production', 'marketing', 'performance driven media'].filter(Boolean) as string[],
   });
 }
 
@@ -132,6 +137,25 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     { slug }
   );
 
+  // Fetch related posts (same category or recent posts)
+  const relatedPosts: BlogPost[] = await sanityClient.fetch(
+    `*[_type == "blogPost" && _id != $postId] | order(publishedAt desc) [0...3] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      category,
+      readTime,
+      mainImage {
+        asset -> {
+          url
+        }
+      },
+      publishedAt
+    }`,
+    { postId: post?._id }
+  );
+
   // If post doesn't exist, return 404
   if (!post) {
     notFound();
@@ -147,18 +171,23 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     });
   };
 
-  // Generate structured data for the blog post
+  // Generate comprehensive structured data for the blog post
   const articleStructuredData = {
+    '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description: post.excerpt,
-    image: post.mainImage?.asset?.url,
+    description: post.excerpt || `Discover insights about ${post.title} from Performance Driven Media's expert team.`,
+    image: post.mainImage?.asset?.url ? [post.mainImage.asset.url] : [],
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: {
       '@type': 'Organization',
       name: 'Performance Driven Media',
       url: 'https://performancedrivenmedia.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://performancedrivenmedia.com/og-image.svg',
+      },
     },
     publisher: {
       '@type': 'Organization',
@@ -166,15 +195,34 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       url: 'https://performancedrivenmedia.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://performancedrivenmedia.com/logo.png',
+        url: 'https://performancedrivenmedia.com/og-image.svg',
+        width: 1200,
+        height: 630,
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://performancedrivenmedia.com/blog/${slug}`,
     },
-    articleSection: post.category,
+    articleSection: post.category || 'Video Production',
     wordCount: post.body?.length || 0,
+    keywords: [
+      'performance driven media',
+      'video production',
+      'direct response marketing',
+      post.category || '',
+      post.title.toLowerCase(),
+    ].filter(Boolean).join(', '),
+    about: {
+      '@type': 'Thing',
+      name: 'Video Production and Direct Response Marketing',
+    },
+    mentions: [
+      {
+        '@type': 'Organization',
+        name: 'Performance Driven Media',
+      },
+    ],
   };
 
   return (
@@ -194,18 +242,32 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
 
         <div className="relative max-w-4xl mx-auto px-4">
-          {/* Back to Blog Link */}
-          <div className="mb-6">
-            <Link
-              href="/blog"
-              className="inline-flex items-center text-red-400 hover:text-red-300 transition-colors duration-300"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Blog
-            </Link>
-          </div>
+          {/* Breadcrumb Navigation */}
+          <nav className="mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center space-x-2 text-sm text-gray-400">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-white" aria-current="page">
+                  {post.title}
+                </span>
+              </li>
+            </ol>
+          </nav>
 
           {/* Category Badge */}
           {post.category && (
@@ -276,6 +338,70 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </article>
         </div>
       </section>
+
+      {/* Related Posts Section */}
+      {relatedPosts.length > 0 && (
+        <section className="py-16 bg-gradient-to-br from-gray-900 to-black">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+              More from Performance Driven Media
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {relatedPosts.map((relatedPost) => (
+                <article
+                  key={relatedPost._id}
+                  className="bg-black border border-gray-800 p-6 hover:border-red-500 transition-colors duration-300 group"
+                >
+                  {relatedPost.mainImage && (
+                    <div className="mb-4">
+                      <Image
+                        src={relatedPost.mainImage.asset.url}
+                        alt={relatedPost.title}
+                        width={400}
+                        height={250}
+                        className="w-full h-48 object-cover rounded"
+                      />
+                    </div>
+                  )}
+
+                  {relatedPost.category && (
+                    <div className="inline-block bg-red-500/20 text-red-400 px-3 py-1 rounded text-sm font-medium mb-4">
+                      {relatedPost.category}
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-red-400 transition-colors">
+                    <Link href={`/blog/${relatedPost.slug.current}`}>
+                      {relatedPost.title}
+                    </Link>
+                  </h3>
+
+                  {relatedPost.excerpt && (
+                    <p className="text-gray-400 mb-4 leading-relaxed">
+                      {relatedPost.excerpt}
+                    </p>
+                  )}
+
+                  <div className="flex items-center justify-between">
+                    {relatedPost.readTime && (
+                      <span className="text-sm text-gray-500">
+                        {relatedPost.readTime}
+                      </span>
+                    )}
+
+                    <Link
+                      href={`/blog/${relatedPost.slug.current}`}
+                      className="text-red-500 hover:text-red-400 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
+                    >
+                      Read More →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-red-900/20 to-red-800/20 relative overflow-hidden">
